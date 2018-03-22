@@ -1,4 +1,4 @@
-# Elastos.ELA.Pay
+# Elastos.ELA.Pay(English&Chinese)
 hello everyone, Here is a brief description of the product.
 
 Elapay is a payment tool with ELA, there are two types of Elapay:pay on order and point to point pay and receipt.
