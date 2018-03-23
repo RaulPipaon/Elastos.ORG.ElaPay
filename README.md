@@ -1,15 +1,13 @@
 # Elastos.ELA.Pay(English&Chinese)
-hello everyone, Here is a brief description of the product.
+hello everyone, Here is a brief description of the Elapay.
 
-Elapay is a payment tool with ELA, there are two types of Elapay:pay on order and point to point pay and receipt.
+Elapay is a payment tool with ELA, there are two types: pay on order and point to point pay and receipt.
 
-The first type is  a merchant integrate the Elapay service into its web and app for users to choose with other payment like bank card and third party payment; the second type is to make a h5 page can be shared in the social media like facebook,wechat and pay or receipt ELA.
+The first type is a merchant integrate the Elapay service into its web and app for users to choose with other ways like bank card and third party payment; the second type is a h5 page can be shared in the social media like facebook,wechat then pay or receipt.
 
-A commodity or service can be priced with ELA directly or one legal currency like dollar or RMB and exchange into ELA
-on an exchange rate.
+A commodity or service can be priced with ELA directly or price with a legal currency on an exchange rate.
 
-Elapay can be used in many situations,like in a game the you can buy equipments and transact with ELA,and you can buy with ELA
-on a shopping website.
+Elapay can be used in many situations,like in a game the you can buy equipments and transact with ELA,and you can buy with ELA on a shopping website.
 
 
 Elapay是一种用ELA币进行交易和支付的工具，Elapay主要有两种类型：订购类支付和点对点收付款。
