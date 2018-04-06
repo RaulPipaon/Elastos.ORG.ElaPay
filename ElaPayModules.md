@@ -48,7 +48,8 @@ Order payment consists of the following three services and a WEB wallet.
         - Input
           - Order infomation (订单信息)
           - Business information (商户信息)
-          - exchange rate adjustExchange rate adjustment. Currency exchange rate with ELA can be adjusted up or down.(法币与ELA兑换的汇率调整，可以调高或者调低)
+          - exchange rate adjustExchange rate adjustment. Currency exchange rate with ELA can be adjusted up or down.
+          (法币与ELA兑换的汇率调整，可以调高或者调低)
           - Payment result callback URL (支付结果回调URL)
           - Frontend return URL (前台返回页面URL)
           - Subscription notification email address (订阅通知邮件地址)
@@ -56,11 +57,9 @@ Order payment consists of the following three services and a WEB wallet.
           - Success or Failure (成功 or 失败)
 
       - Exchange rate query interface (汇率查询接口)
-
-        ​
-
+      
         Based on the real-time price of ELA/USDT on the [Huobi.pro](http://Huobi.pro) and the exchange rate between the currencies of the foreign exchange market and the U.S. dollar
-        按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格
+        (按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格)
 
         - Input
           - Currency Code (货币类型代码)
@@ -83,9 +82,6 @@ Order payment consists of the following three services and a WEB wallet.
           - If the transaction is not completed, return the subscription success or failure (如果交易未完成，则返回订阅成功或失败)
 
       - User payment notification interface (用户付款通知接口)
-
-        ​
-
         Called by the wallet page to hear that the user has initiated a payment transaction in the wallet
         (由钱包页面调用，用于收听用户已在钱包发起支付交易的通知)
 
@@ -106,10 +102,8 @@ Order payment consists of the following three services and a WEB wallet.
 
 ### Listening to trading service (监听交易服务)
 
-  ​
-
   Listen to the new block in the background to find the transaction information that is subscribed
-  后台监听新增区块，查找被订阅的交易信息
+  (后台监听新增区块，查找被订阅的交易信息)
 
   - Feature
     - Provide transaction query interface (提供交易查询接口)
@@ -167,8 +161,6 @@ Order payment consists of the following three services and a WEB wallet.
 ### Web Wallet (网页钱包)
 
   - Quick payment page (快捷支付页面)
-
-    ​
 
     The quick page for order payment in the web wallet automatically includes the order information, target address, ELA quantity, and usage order information to fill in transaction notes
     (在Web钱包里针对订单付款的快捷页面，自动包含订单信息、目标地址、ELA数量和使用订单关联信息填写到交易备注)
