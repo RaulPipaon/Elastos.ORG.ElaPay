@@ -24,18 +24,18 @@ Order payment consists of the following three services and a WEB wallet.
         Unique order id (唯一订单号)
       - price by currency
       - price by ELA
-    - Multi-currency support (多币种支持)
-      According to the USDA price of the ELA on the fire currency, the price is calculated based on the exchange rate between the specified currency type and the U.S. dollar.
-      (按火币上ELA的USDT价格作为基础，再根据指定货币类型与美元的汇率计算价格)
+    - Multi-currency support (多币种支持)</br>
+      According to the USDA price of the ELA on the fire currency, the price is calculated based on the exchange rate between the specified currency type and the U.S. dollar.</br>
+      (按火币上ELA的USDT价格作为基础，再根据指定货币类型与美元的汇率计算价格)</br>
 
   - Backend (后台)
 
     - Feature (功能)
 
       - Implement functional processes (实现功能流程)
-      - Email notification (实现邮件通知)
-        Email notification for events such as payment initiation and payment success
-        (发起支付、支付成功等事件的邮件通知)
+      - Email notification (实现邮件通知)</br>
+        Email notification for events such as payment initiation and payment success</br>
+        (发起支付、支付成功等事件的邮件通知)</br>
       - Integrate other modules (集成其它模块)
       - Take full account of business process robustness (充分考虑业务流程健壮性)
       - Save data to database (使用数据库保存数据)
@@ -60,10 +60,10 @@ Order payment consists of the following three services and a WEB wallet.
         - Output
           - Success or Failure (成功 or 失败)
 
-      - Exchange rate query interface (汇率查询接口)
+      - Exchange rate query interface (汇率查询接口)</br>
       
-        Based on the real-time price of ELA/USDT on the [Huobi.pro](http://Huobi.pro) and the exchange rate between the currencies of the foreign exchange market and the U.S. dollar
-        (按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格)
+        Based on the real-time price of ELA/USDT on the [Huobi.pro](http://Huobi.pro) and the exchange rate between the currencies of the foreign exchange market and the U.S. dollar</br>
+        (按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格)</br>
 
         - Input
           - Currency Code (货币类型代码)
@@ -85,9 +85,9 @@ Order payment consists of the following three services and a WEB wallet.
           - If the transaction is complete, return the result directly (如果交易已经完成，则直接返回结果)
           - If the transaction is not completed, return the subscription success or failure (如果交易未完成，则返回订阅成功或失败)
 
-      - User payment notification interface (用户付款通知接口)
-        Called by the wallet page to hear that the user has initiated a payment transaction in the wallet
-        (由钱包页面调用，用于收听用户已在钱包发起支付交易的通知)
+      - User payment notification interface (用户付款通知接口)</br>
+        Called by the wallet page to hear that the user has initiated a payment transaction in the wallet</br>
+        (由钱包页面调用，用于收听用户已在钱包发起支付交易的通知)</br>
 
         - Input
           - Transaction hash (交易hash)
@@ -97,17 +97,17 @@ Order payment consists of the following three services and a WEB wallet.
 
     - Database
 
-      - Order payment request (订单支付请求)
-        Record complete payment request and generate unique transaction serial number for order
-        记录完整的支付请求，生成针对订单的唯一交易流水号
-      - Transaction Record (交易记录)
-        Record the transaction information and status corresponding to the transaction hash, and associate orders
-        记录交易hash对应的交易信息、状态，关联订单
+      - Order payment request (订单支付请求)</br>
+        Record complete payment request and generate unique transaction serial number for order</br>
+        记录完整的支付请求，生成针对订单的唯一交易流水号</br>
+      - Transaction Record (交易记录)</br>
+        Record the transaction information and status corresponding to the transaction hash, and associate orders</br>
+        记录交易hash对应的交易信息、状态，关联订单</br>
 
 ### Listening to trading service (监听交易服务)
 
-  Listen to the new block in the background to find the transaction information that is subscribed
-  (后台监听新增区块，查找被订阅的交易信息)
+  Listen to the new block in the background to find the transaction information that is subscribed</br>
+  (后台监听新增区块，查找被订阅的交易信息)</br>
 
   - Feature
     - Provide transaction query interface (提供交易查询接口)
@@ -115,8 +115,8 @@ Order payment consists of the following three services and a WEB wallet.
     - Poll the block information in the background, parse all transaction information and save it to the database (后台轮询区块信息，解析全部交易信息并保存到数据库)
     - Subscribe to subscribers by subscription callback (按订阅情况回调通知订阅者)
   - Query transaction interface (查询交易接口)
-    - Feature
-      Query the information of the specified transaction, if it is already in the blockchain, return the details and the blockchain explorer URL
+    - Feature</br>
+      Query the information of the specified transaction, if it is already in the blockchain, return the details and the blockchain explorer URL</br>
       (查询指定交易的信息，如果已经上链，则返回详细信息和区块链浏览器URL)
     - Input
       - transaction hash
@@ -164,9 +164,8 @@ Order payment consists of the following three services and a WEB wallet.
 
 ### Web Wallet (网页钱包)
 
-  - Quick payment page (快捷支付页面)
-
-    The quick page for order payment in the web wallet automatically includes the order information, target address, ELA quantity, and usage order information to fill in transaction notes
+  - Quick payment page (快捷支付页面)</br>
+    The quick page for order payment in the web wallet automatically includes the order information, target address, ELA quantity, and usage order information to fill in transaction notes</br>
     (在Web钱包里针对订单付款的快捷页面，自动包含订单信息、目标地址、ELA数量和使用订单关联信息填写到交易备注)
 
     - Input
@@ -176,15 +175,15 @@ Order payment consists of the following three services and a WEB wallet.
       - Receipt address (目标收款地址)
       - Frontend return URL (前端跳转返回URL)
 
-  - Package unique transaction id into transaction content (将唯一交易流水号打包进交易内容)
-    Remarks information packaged into the transaction and written to the blockchain
-    (修改钱包后台代码，将备注信息打包到交易里并写到链上)
+  - Package unique transaction id into transaction content (将唯一交易流水号打包进交易内容)</br>
+    Remarks information packaged into the transaction and written to the blockchain</br>
+    (修改钱包后台代码，将备注信息打包到交易里并写到链上)</br>
 
   - Transaction history of the order is displayed in the transaction history of the wallet (钱包里交易记录增加真对订单的交易记录)
 
-  - Callback ElaPay backend service (回调elapay后台)
-    After the user completes the payment, the specified URL is notified
-    (用户完成支付以后，向指定URL发出post通知)
+  - Callback ElaPay backend service (回调elapay后台)</br>
+    After the user completes the payment, the specified URL is notified</br>
+    (用户完成支付以后，向指定URL发出post通知)</br>
 
-  - Return to the business frontend results page (跳转到商家前端结果页面)
-    Front page automatically jumps to the specified URL (前端页面自动跳转到指定的URL)
+  - Return to the business frontend results page (跳转到商家前端结果页面)</br>
+    Front page automatically jumps to the specified URL (前端页面自动跳转到指定的URL)</br>
