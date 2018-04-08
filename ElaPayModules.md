@@ -5,6 +5,10 @@ Order payment consists of the following three services and a WEB wallet.
 3. Query exchange rate service
 4. Web Wallet
 
+#### structure
+<img src="https://github.com/elastos/Elastos.ELA.Pay/raw/master/struct.png" width="420px;" alt="structure">
+ 
+
 ### ElaPay Service (ElaPay服务)
 
   - Checkout Frontend (收银台前台页面)
