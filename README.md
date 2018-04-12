@@ -8,8 +8,8 @@ Below is a brief description of Elapay.
 
 ### Description (English)
 Elapay is a payment tool (or) app that lets you pay with ELA.Two types of payments are supported:
-1.)Pay on order(Example-Paying at a store)
-2.)Point to point pay and receipt.(Example-Paying to a friend)
+1. Pay on order(Example-Paying at a store)
+2. Point to point pay and receipt.(Example-Paying to a friend)
 
 The first type requires merchants to integrate Elapay service into their web apps so that users can choose this service along with other options like "PayPal, Credit card payments or third party payment".
 
