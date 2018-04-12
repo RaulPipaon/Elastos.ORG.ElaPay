@@ -1,7 +1,7 @@
-# Elastos.ELA.Pay(English&Chinese)
+# Elastos ELA Pay
 
 Hello everyone,
-Welcome to ELA PAY!
+Welcome to ELA PAY! 
 
 ## Overview
 Below is a brief description of Elapay.
