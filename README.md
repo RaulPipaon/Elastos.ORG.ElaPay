@@ -34,3 +34,16 @@ Elapay是一种用ELA币进行交易和支付的工具，Elapay主要有两种�
 
 ## Module components
 [ElaPayModules.md](./ElaPayModules.md)
+
+## Reference
+- ela_tools <br/>
+  is a tool for generating transaction signature,there are two forms of signature,one is to call the API，the other one is the web request<br/>
+  https://github.com/elastos/Elastos.ELA.Utilities.Java<br/>
+
+- ela client <br/>
+  [Ela client command](ElaClient.md)
+
+
+
+
+
