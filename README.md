@@ -41,7 +41,7 @@ Elapay是一种用ELA币进行交易和支付的工具，Elapay主要有两种�
   https://github.com/elastos/Elastos.ELA.Utilities.Java<br/>
 
 - ela client <br/>
-  [Ela client command](ElaClient.md)
+  [Ela client command](https://github.com/elastos/Elastos.ELA.Client)
 
 
 
