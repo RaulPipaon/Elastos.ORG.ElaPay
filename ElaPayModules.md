@@ -8,7 +8,7 @@ Order payment consists of the following three services and a WEB wallet.
 #### structure
 <img src="https://github.com/elastos/Elastos.ELA.Pay/raw/master/Structure.png" width="420px;" alt="structure">
 
-- E1:[Request Pay](#RequestPay)
+- <a href="#RequestPay">E1:Request Pay</a>
 - E2:[Pay Result](#PayResult)
 - E3:[Query Rate](#QueryRate)
 - W1:[Request Wallet](#RequestWallet)
