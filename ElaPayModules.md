@@ -8,7 +8,7 @@ Order payment consists of the following three services and a WEB wallet.
 #### structure
 <img src="https://github.com/elastos/Elastos.ELA.Pay/raw/master/Structure.png" width="420px;" alt="structure">
 
-- <a href="#RequestPay">E1:Request Pay</a>
+- E1:[Request Pay](#RequestPay)
 - E2:[Pay Result](#PayResult)
 - E3:[Query Rate](#QueryRate)
 - W1:[Request Wallet](#RequestWallet)
@@ -17,6 +17,7 @@ Order payment consists of the following three services and a WEB wallet.
 
 ### ElaPay Service (ElaPay服务)
   - <div id="CheckoutPage">Checkout Frontend (收银台前台页面)</div>
+  
     - Page content (页面内容)
       - title
         Order title (订单标题)
