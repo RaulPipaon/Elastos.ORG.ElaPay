@@ -1,0 +1,39 @@
+{
+  "name": "elapay",
+  "version": "0.0.1",
+  "description": "Ela pay service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js --watch . --exec babel-node --CONFIG=./config.dev.js",
+    "prod": "NODE_ENV=production node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hoangnv1203/elapay.git"
+  },
+  "author": "hoangnong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hoangnv1203/elapay/issues"
+  },
+  "homepage": "https://github.com/hoangnv1203/elapay#readme",
+  "dependencies": {
+    "babel-cli": "6.26.0",
+    "bluebird": "3.5.1",
+    "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "4.16.2",
+    "express-http-proxy": "1.1.0",
+    "jsonwebtoken": "8.2.0",
+    "mongoose": "5.0.7",
+    "morgan": "1.9.0",
+    "nodemon": "1.17.1",
+    "recursive-config": "1.0.1"
+  },
+  "devDependencies": {
+    "babel-plugin-module-resolver": "3.1.0",
+    "babel-preset-env": "1.6.1",
+    "babel-preset-stage-2": "6.24.1"
+  }
+}
