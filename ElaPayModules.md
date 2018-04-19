@@ -16,9 +16,7 @@ Order payment consists of the following three services and a WEB wallet.
 - CALLBACK_URL: Offered on E1 request
 
 ### ElaPay Service (ElaPay服务)
-
-  - <span id="CheckoutPage">Checkout Frontend (收银台前台页面)</span>
-
+  - <span id="CheckoutPage">Checkout Frontend (收银台前台页面)</span>
     - Page content (页面内容)
       - title
         Order title (订单标题)
