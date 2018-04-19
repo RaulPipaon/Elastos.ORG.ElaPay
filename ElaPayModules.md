@@ -65,31 +65,6 @@ Order payment consists of the following three services and a WEB wallet.
         - Output
           - Success or Failure (成功 or 失败)
 
-      - Exchange rate query interface (汇率查询接口)</br>
-      
-        Based on the real-time price of ELA/USDT on the [Huobi.pro](http://Huobi.pro) and the exchange rate between the currencies of the foreign exchange market and the U.S. dollar</br>
-        (按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格)</br>
-
-        - Input
-          - Currency Code (货币类型代码)
-          - Amount (数量)
-          - Exchange rate adjustment (汇率调整比率)
-            Exchange rate adjustment between Currency and ELA can be adjusted up or down
-            法币与ELA兑换的汇率调整，可以调高或者调低
-        - Output
-          - ELA amount (ELA数量)
-          - Exchange rate of ELA/USDT on the [Huobi.pro](http://Huobi.pro)(火币ELA/USDT汇率)
-          - Exchange rate query time (汇率的时间)
-
-      - Subscribe transaction status change notification interface (订阅交易状态变更通知接口)
-
-        - Input
-          - Transaction hash (交易hash)
-          - Result callback URL (结果回调URL)
-        - Output
-          - If the transaction is complete, return the result directly (如果交易已经完成，则直接返回结果)
-          - If the transaction is not completed, return the subscription success or failure (如果交易未完成，则返回订阅成功或失败)
-
       - <div id="PayResult">User payment notification interface (用户付款通知接口)</div></br>
         Called by the wallet page to hear that the user has initiated a payment transaction in the wallet</br>
         (由钱包页面调用，用于收听用户已在钱包发起支付交易的通知)</br>
