@@ -55,7 +55,7 @@ Order payment consists of the following three services and a WEB wallet.
           - Calculate the exchange rate (计算汇率)
           - Redirect to the [frontend page](#CheckoutPage) (重定向到前台收银台页面)
         - Input
-          - Order infomation (订单信息)
+          - Order infomation, Order amount, price of RMB/USD/JPY... or ELA.  (订单信息)
           - Business information (商户信息)
           - exchange rate adjustExchange rate adjustment. Currency exchange rate with ELA can be adjusted up or down.
           (法币与ELA兑换的汇率调整，可以调高或者调低)
