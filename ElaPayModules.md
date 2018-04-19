@@ -16,7 +16,7 @@ Order payment consists of the following three services and a WEB wallet.
 - CALLBACK_URL: Offered on E1 request
 
 ### ElaPay Service (ElaPay服务)
-  - <span id="CheckoutPage">Checkout Frontend (收银台前台页面)</span>
+  - <div id="CheckoutPage">Checkout Frontend (收银台前台页面)</div>
     - Page content (页面内容)
       - title
         Order title (订单标题)
@@ -47,7 +47,7 @@ Order payment consists of the following three services and a WEB wallet.
 
     - API
 
-      - <span id="RequestPay">Payment request interface (支付请求接口)</span>
+      - <div id="RequestPay">Payment request interface (支付请求接口)</div>
 
         - Feature
           - Save request records to the database (保存请求记录到数据库)
@@ -89,7 +89,7 @@ Order payment consists of the following three services and a WEB wallet.
           - If the transaction is complete, return the result directly (如果交易已经完成，则直接返回结果)
           - If the transaction is not completed, return the subscription success or failure (如果交易未完成，则返回订阅成功或失败)
 
-      - <span id="PayResult">User payment notification interface (用户付款通知接口)</span></br>
+      - <div id="PayResult">User payment notification interface (用户付款通知接口)</div></br>
         Called by the wallet page to hear that the user has initiated a payment transaction in the wallet</br>
         (由钱包页面调用，用于收听用户已在钱包发起支付交易的通知)</br>
 
@@ -152,7 +152,7 @@ Order payment consists of the following three services and a WEB wallet.
     - Get real-time prices from [huobi.pro](http://huobi.pro) (连接火币查价格)
     - Get real-time prices from the foreign exchange market (连接外汇交易中心查询法币汇率)
   
-  - <span id="QueryRate">Query exchange rate interface (汇率查询接口)</span></br>
+  - <div id="QueryRate">Query exchange rate interface (汇率查询接口)</div></br>
       
     Based on the real-time price of ELA/USDT on the [Huobi.pro](http://Huobi.pro) and the exchange rate between the currencies of the foreign exchange market and the U.S. dollar</br>
     (按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格)</br>
@@ -171,7 +171,7 @@ Order payment consists of the following three services and a WEB wallet.
 
 ### Web Wallet (网页钱包)
 
-  - <span id="RequestWallet">Quick payment page (快捷支付页面)</span></br>
+  - <div id="RequestWallet">Quick payment page (快捷支付页面)</div></br>
     The quick page for order payment in the web wallet automatically includes the order information, target address, ELA quantity, and usage order information to fill in transaction notes</br>
     (在Web钱包里针对订单付款的快捷页面，自动包含订单信息、目标地址、ELA数量和使用订单关联信息填写到交易备注)
 
