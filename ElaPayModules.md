@@ -8,15 +8,15 @@ Order payment consists of the following three services and a WEB wallet.
 #### structure
 <img src="https://github.com/elastos/Elastos.ELA.Pay/raw/master/Structure.png" width="420px;" alt="structure">
 
-- E1:[Request Pay](#RequestPay)
-- E2:[Pay Result](#PayResult)
-- E3:[Query Rate](#QueryRate)
-- W1:[Request Wallet](#RequestWallet)
+- E1:Request Pay
+- E2:Pay Result
+- E3:Query Rate
+- W1:Request Wallet
 - RETURN_URL: Offered on E1 request
 - CALLBACK_URL: Offered on E1 request
 
 ### ElaPay Service (ElaPay服务)
-  - <div id="CheckoutPage">Checkout Frontend (收银台前台页面)</div>
+  - Checkout Frontend (收银台前台页面)
     - Page content (页面内容)
       - title
         Order title (订单标题)
@@ -41,8 +41,8 @@ Order payment consists of the following three services and a WEB wallet.
       - Take full account of business process robustness (充分考虑业务流程健壮性)
       - Save data to database (使用数据库保存数据)
       - Implement API interface (提供API接口)
-    - API
-      - <div id="RequestPay">Payment request interface (支付请求接口)</div>
+    - Interfaces
+      - Payment request interface (支付请求接口)
         - Feature
           - Save request records to the database (保存请求记录到数据库)
           - Calculate the exchange rate (计算汇率)
@@ -58,7 +58,8 @@ Order payment consists of the following three services and a WEB wallet.
           - Subscription notification email address (订阅通知邮件地址)
         - Output
           - Success or Failure (成功 or 失败)
-      - <div id="PayResult">User payment notification interface (用户付款通知接口)</div>
+
+      - User payment notification interface (用户付款通知接口)
         Called by the wallet page to hear that the user has initiated a payment transaction in the wallet
         (由钱包页面调用，用于收听用户已在钱包发起支付交易的通知)
 
@@ -120,7 +121,7 @@ Order payment consists of the following three services and a WEB wallet.
     - Get real-time prices from [huobi.pro](http://huobi.pro) (连接火币查价格)
     - Get real-time prices from the foreign exchange market (连接外汇交易中心查询法币汇率)
 
-  - <div id="QueryRate">Query exchange rate interface (汇率查询接口)</div>
+  - Query exchange rate interface (汇率查询接口)
 
     Based on the real-time price of ELA/USDT on the [Huobi.pro](http://Huobi.pro) and the exchange rate between the currencies of the foreign exchange market and the U.S. dollar
     (按火币上与USDT的实时价格作为基础，再与外汇市场各国货币与美元的汇率计算价格)
@@ -138,7 +139,7 @@ Order payment consists of the following three services and a WEB wallet.
 
 ### Web Wallet (网页钱包)
 
-  - <div id="RequestWallet">Quick payment page (快捷支付页面)</div>
+  - Quick payment page (快捷支付页面)
     The quick page for order payment in the web wallet automatically includes the order information, target address, ELA quantity, and usage order information to fill in transaction notes
     (在Web钱包里针对订单付款的快捷页面，自动包含订单信息、目标地址、ELA数量和使用订单关联信息填写到交易备注)
 
