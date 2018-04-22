@@ -1,0 +1,100 @@
+enum TicketStatus {
+    WAITING,
+	PROCESSING,
+    DONE,
+    HOLD
+}
+
+entity Company {
+	name String
+    domain String
+    extendedInfo String
+}
+
+entity Shop {
+	name String
+    address String
+    description String
+    setting String
+    createdDate Instant
+    createdBy String
+    lastModifyDate Instant
+    lastModifyBy String
+    deletedDate Instant
+    deletedBy String
+}
+
+entity Service {
+	name String
+    description String
+    createdDate Instant
+    createdBy String
+    lastModifyDate Instant
+    lastModifyBy String
+    deletedDate Instant
+    deletedBy String
+}
+
+entity SubService {
+	name String
+    description String
+    createdDate Instant
+    createdBy String
+    lastModifyDate Instant
+    lastModifyBy String
+    deletedDate Instant
+    deletedBy String
+}
+
+entity Ticket {
+	code  String
+	no Integer
+    customerName String
+    customerEmail String
+    customerPhoneNumber String
+    status TicketStatus
+    isDeleted Boolean
+    createdDate Instant
+    createdBy String
+    lastModifyDate Instant
+    lastModifyBy String
+    deletedDate Instant
+    deletedBy String
+}
+
+entity UserInfo {
+	createdDate Instant
+    createdBy String
+    lastModifyDate Instant
+    lastModifyBy String
+    deletedDate Instant
+    deletedBy String
+}
+
+entity Tenant {
+
+}
+
+entity Counter {
+	name String
+    minSeverNumber Integer
+    maxServerNumber Integer
+    createdDate Instant
+    createdBy String
+    lastModifyDate Instant
+    lastModifyBy String
+    deletedDate Instant
+    deletedBy String
+}
+
+
+relationship OneToOne {
+    UserInfo{user} to User{userinfo}
+}
+
+relationship OneToMany {
+	Service{subService} to SubService{service}
+}
+
+paginate all with pagination
+service all with serviceImpl

@@ -1,0 +1,18 @@
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h1 jhiTranslate="login.screenTitle"></h1>
+
+        <form class="form" role="form" (ngSubmit)="actionSave()">
+            <div class="form-group">
+                <label for="username" jhiTranslate="login.username"></label>
+                <input type="text" class="form-control" name="username" id="username" [(ngModel)]="item.username">
+            </div>
+            <div class="form-group">
+                <label for="password" jhiTranslate="login.password"></label>
+                <input type="password" class="form-control" name="password" id="password" [(ngModel)]="item.password">
+            </div>
+
+            <button [disabled]="!item.username || !item.password" type="submit" class="btn btn-primary" jhiTranslate="login.signIn"></button>
+        </form>
+    </div>
+</div>
