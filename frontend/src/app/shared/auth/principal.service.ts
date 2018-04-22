@@ -60,24 +60,26 @@ export class Principal {
             return Promise.resolve(this.userIdentity);
         }
 
+        return Promise.resolve(true);
+
         // retrieve the userIdentity data from the server, update the identity object, and then resolve.
-        return this.account.get().toPromise().then((response) => {
-            const account = response.body;
-            if (account) {
-                this.userIdentity = account;
-                this.authenticated = true;
-            } else {
-                this.userIdentity = null;
-                this.authenticated = false;
-            }
-            this.authenticationState.next(this.userIdentity);
-            return this.userIdentity;
-        }).catch((err) => {
-            this.userIdentity = null;
-            this.authenticated = false;
-            this.authenticationState.next(this.userIdentity);
-            return null;
-        });
+        // return this.account.get().toPromise().then((response) => {
+        //     const account = response.body;
+        //     if (account) {
+        //         this.userIdentity = account;
+        //         this.authenticated = true;
+        //     } else {
+        //         this.userIdentity = null;
+        //         this.authenticated = false;
+        //     }
+        //     this.authenticationState.next(this.userIdentity);
+        //     return this.userIdentity;
+        // }).catch((err) => {
+        //     this.userIdentity = null;
+        //     this.authenticated = false;
+        //     this.authenticationState.next(this.userIdentity);
+        //     return null;
+        // });
     }
 
     isAuthenticated(): boolean {
