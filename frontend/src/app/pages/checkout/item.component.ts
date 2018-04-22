@@ -37,10 +37,6 @@ export class ItemComponent implements OnInit, OnDestroy {
         alert('TODO handleClickPay');
     }
 
-    redirect() {
-        this.router.navigate(['/checkout']);
-    }
-
     handleClickClose() {
         alert('TODO handleClickClose');
     }

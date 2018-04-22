@@ -44,6 +44,10 @@ export class NavbarComponent implements OnInit {
       this.languageService.changeLanguage(languageKey);
     }
 
+    redirect() {
+        this.router.navigate(['/']);
+    }
+
     collapseNavbar() {
         this.isNavbarCollapsed = true;
     }

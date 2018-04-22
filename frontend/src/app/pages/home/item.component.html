@@ -1,41 +1,7 @@
 <div class="wrap-component" *ngIf="item">
-    <div class="wrap-btn-close" (click)="handleClickClose()">
-        Close <i class="fa fa-times" aria-hidden="true"></i>
-    </div>
-    <div class="on-date mb-10">
-        On {{ item.date|momentFormatPipe:'DD.MM.YYYY' }}
-    </div>
-    <div class="order-name">
-        {{ item.name }}
-    </div>
-    <div class="order-description mb-15">
-        {{ item.description }}
-    </div>
-    <div class="business-name">
-        {{ item.businessName }}
-    </div>
-    <div class="order-id mb-6">
-        {{ item.orderId }}
-    </div>
-
-    <hr class="line-1px">
-
-    <div class="wrap-cast-outer">
-        <div class="wrap-cash">
-            <div class="cash-ele">
-                {{ item.cashEla }} ELA
-            </div>
-            <div class="cash-usd">
-                {{ item.cashUsd }} USD
-            </div>
-        </div>
-    </div>
-
-    <hr class="line-1px mb-16">
-
     <div class="wrap-btn-checkout text-center">
-        <button class="btn btn-checkout mt-16" (click)="handleClickPay()">
-            Pay with ELA Pay
+        <button class="btn btn-checkout mt-16" (click)="redirect()">
+            Checkout
         </button>
     </div>
 </div>

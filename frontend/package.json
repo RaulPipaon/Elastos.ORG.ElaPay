@@ -1,7 +1,7 @@
 {
-  "name": "ticket-machine",
+  "name": "elapay",
   "version": "0.0.0",
-  "description": "Description for ticketMachine",
+  "description": "Description for elapay",
   "private": true,
   "license": "UNLICENSED",
   "cacheDirectories": [
