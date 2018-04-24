@@ -1,19 +1,38 @@
-import Order from 'models/order'
+import { createOrder, getOrder } from 'services/order'
 
-export function create(req, res, next) {
-  let { businessInfo, exchangeRate, callbackUrl, returnUrl, email } = req.body
+export async function create(req, res, next) {
+  let {
+    orderDesc,
+    orderId,
+    businessName,
+    currency,
+    price,
+    currencyCode,
+    rateAdjustment,
+    callbackUrl,
+    returnUrl,
+    email
+  } = req.body
 
-  const order = new Order({
-    businessInfo,
-    exchangeRate,
+  const order = await createOrder({
+    orderDesc,
+    orderId,
+    businessName,
+    currency,
+    price,
+    currencyCode,
+    rateAdjustment,
     callbackUrl,
     returnUrl,
     email
   })
 
-  order.save(err => {
-    if (err) throw err
+  res.json({order: order})
+}
 
-      res.json({ success: true })
-  })
+export async function orderDetail(req, res, next) {
+  let { id } = req.params
+
+  const order = await getOrder(id)
+  res.json({order: order})
 }
