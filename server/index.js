@@ -5,50 +5,54 @@ import morgan from 'morgan'
 import { SERVER_PORT } from 'config/config'
 import mongoose from 'mongoose'
 import api from 'modules/api'
-import elaprices from 'modules/api/routes/elaprice'
-import querytx from 'modules/api/routes/querytx'
-import subscribewithdetails from 'modules/api/routes/subscriptiondetails'
-import subscribewithtx from 'modules/api/routes/subscriptionhash'
+import elaprices from 'modules/api/controllers/elaprice'
+import querytx from 'modules/api/controllers/querytx'
+import subscribewithdetails from 'modules/api/controllers/subscriptiondetails'
+import subscribewithtx from 'modules/api/controllers/subscriptionhash'
 
 //Added for body parser by HT
-const bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
 
 const system = express()
 
- //Added for body parse json by HT
- system.use(bodyParser.json()); // support json encoded bodies
- system.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+//Added for body parse json by HT
+// support json encoded bodies
+system.use(bodyParser.json());
+// support encoded bodies
+system.use(bodyParser.urlencoded({ extended: true }));
 
- //Added for API CALLS by HT
- system.use('/api', api)
- system.get('/querytx', querytx.details);
- system.post('/subscribewithdetails', subscribewithdetails.details);
- system.post('/subscribewithtx', subscribewithtx.details);
- system.get('/elaprices', elaprices.details);
-  
+//Added for API CALLS by HT
+system.use('/api', api)
+system.get('/querytx', querytx.details);
+system.post('/subscribewithdetails', subscribewithdetails.details);
+system.post('/subscribewithtx', subscribewithtx.details);
+system.get('/elaprices', elaprices.details);
+
 system.get('/', (req, res) => {
   res.json('Landing page')
 })
 
 //Added by HT to support Background Jobs
-var childProcess = require("child_process");
+import childProcess from 'child_process';
 var _finalizedData = null,
-_httpRequestArray = ["Request Details"];
+_httpRequestArray = ['Request Details'];
+
 var data = {
-"start":true,
-"interval": 10 * 1000,
-"content": _httpRequestArray
+  'start': true,
+  'interval': 10 * 1000,
+  'content': _httpRequestArray
 };
-system._retrieveTxDetailsChild = childProcess.fork("./modules/api/routes/bcjobs/txDbRetriever");
-system._sendTxDetailsChild = childProcess.fork("./modules/api/routes/bcjobs/txCallbackPost");
+
+system._retrieveTxDetailsChild = childProcess.fork('./services/bcjobs/txDbRetriever');
+system._sendTxDetailsChild = childProcess.fork('./services/bcjobs/txCallbackPost');
 //To handle requests based on details
-system._retrieveDetailsPerBlock = childProcess.fork("./modules/api/routes/bcjobs/detailsDbRetriever");
-system._sendDetailsPerBlock = childProcess.fork("./modules/api/routes/bcjobs/detailsCallbackPost");
+system._retrieveDetailsPerBlock = childProcess.fork('./services/bcjobs/detailsDbRetriever');
+system._sendDetailsPerBlock = childProcess.fork('./services/bcjobs/detailsCallbackPost');
 //To handle block fetch details
-system._retrieveTxBlockDetails = childProcess.fork("./modules/api/routes/bcjobs/fetchblocks");
+system._retrieveTxBlockDetails = childProcess.fork('./services/bcjobs/fetchblocks');
 /*
 this._retrieveChild.on('message', function(msg){
-    console.log("Recv'd message from background process.");
+    console.log('Recv'd message from background process.');
     _finalizedData = msg.content;
 }.bind(this));
 */
