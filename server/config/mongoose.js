@@ -4,7 +4,7 @@ import { MONGODB } from 'config/config'
 
 mongoose.Promise = Bluebird
 mongoose.connect(MONGODB, {
-  promiseLibrary: Bluebird
+    promiseLibrary: Bluebird
 })
 
 export default mongoose

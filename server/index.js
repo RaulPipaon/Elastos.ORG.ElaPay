@@ -23,10 +23,6 @@ system.use(bodyParser.urlencoded({ extended: true }));
 
 //Added for API CALLS by HT
 system.use('/api', api)
-system.get('/querytx', querytx.details);
-system.post('/subscribewithdetails', subscribewithdetails.details);
-system.post('/subscribewithtx', subscribewithtx.details);
-system.get('/elaprices', elaprices.details);
 
 system.get('/', (req, res) => {
   res.json('Landing page')
@@ -38,9 +34,9 @@ var _finalizedData = null,
 _httpRequestArray = ['Request Details'];
 
 var data = {
-  'start': true,
-  'interval': 10 * 1000,
-  'content': _httpRequestArray
+    'start': true,
+    'interval': 10 * 1000,
+    'content': _httpRequestArray
 };
 
 system._retrieveTxDetailsChild = childProcess.fork('./services/bcjobs/txDbRetriever');
