@@ -1,21 +1,21 @@
 <div class="wrap-component" *ngIf="item">
-    <div class="wrap-btn-close" (click)="handleClickClose()">
+    <div class="wrap-btn-close close-button" (click)="handleClickClose()">
         Close <i class="fa fa-times" aria-hidden="true"></i>
     </div>
     <div class="on-date mb-10">
-        On {{ item.date|momentFormatPipe:'DD.MM.YYYY' }}
+        On {{ item.createdDate|momentFormatPipe:'DD.MM.YYYY' }}
     </div>
     <div class="order-name">
-        {{ item.name }}
+        {{ item.orderName }}
     </div>
     <div class="order-description mb-15">
-        {{ item.description }}
+        {{ item.orderDesc }}
     </div>
     <div class="business-name">
         {{ item.businessName }}
     </div>
     <div class="order-id mb-6">
-        {{ item.orderId }}
+        {{ item._id }}
     </div>
 
     <hr class="line-1px">
@@ -23,10 +23,10 @@
     <div class="wrap-cast-outer">
         <div class="wrap-cash">
             <div class="cash-ele">
-                {{ item.cashEla }} ELA
+                {{ item.price }} ELA
             </div>
             <div class="cash-usd">
-                {{ item.cashUsd }} USD
+                {{ item.price }} USD
             </div>
         </div>
     </div>

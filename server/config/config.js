@@ -1,8 +1,3 @@
-import config from 'recursive-config'
-
-export default config.load({
-  defaults: {
-    amqpHost: 'amqp://localhost',
-    httpProvider: 'http://localhost:8545'
-  }
-})
+export const SERVER_PORT = 3001
+// export const MONGODB = 'mongodb://localhost/elapay'
+export const MONGODB = 'mongodb://52.15.131.100:27017/elaPay'

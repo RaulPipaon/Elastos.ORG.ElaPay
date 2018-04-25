@@ -1,9 +1,9 @@
 import Bluebird from 'bluebird'
 import mongoose from 'mongoose'
-import config from 'config/config'
+import { MONGODB } from 'config/config'
 
 mongoose.Promise = Bluebird
-mongoose.connect(config.mongodb, {
+mongoose.connect(MONGODB, {
   promiseLibrary: Bluebird
 })
 

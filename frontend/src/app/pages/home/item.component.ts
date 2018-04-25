@@ -24,12 +24,17 @@ export class ItemComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.item = {
             date: moment().toISOString(),
-            name: 'Order name',
-            description: 'Order description',
+            orderName: 'Order name',
+            orderDesc: 'Order description',
+            orderId: '',
             businessName: 'Business name',
-            orderId: 'Order ID',
-            cashEla: '0.00',
-            cashUsd: '0.00',
+            currency: 'ELA',
+            price: 10,
+            currencyCode: 'ELA',
+            rateAdjustment: '',
+            callbackUrl: '',
+            returnUrl: '',
+            email: ''
         };
     }
 
@@ -37,8 +42,13 @@ export class ItemComponent implements OnInit, OnDestroy {
         alert('TODO handleClickPay');
     }
 
-    redirect() {
-        this.router.navigate(['/checkout']);
+    checkout() {
+        this.itemService.save(this.item).subscribe((data) => {
+            console.log('data', data);
+            this.router.navigate([`/checkout/${data.order._id}`]);
+        }, (err) => {
+            console.log('err', err);
+        });
     }
 
     handleClickClose() {
