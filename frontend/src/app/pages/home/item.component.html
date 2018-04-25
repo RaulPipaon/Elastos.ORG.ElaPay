@@ -1,7 +1,49 @@
 <div class="wrap-component" *ngIf="item">
-    <div class="wrap-btn-checkout text-center">
-        <button class="btn btn-checkout mt-16" (click)="redirect()">
-            Checkout
-        </button>
-    </div>
+    <form name="form" role="form" (ngSubmit)="checkout()" #checkoutForm="ngForm">
+        <div class="form-group">
+            <label class="form-control-label" for="orderName">Order Name</label>
+            <input type="text" class="form-control" [(ngModel)]="item.orderName" id="orderName" name="orderName" #orderName="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="orderDesc">Order Description</label>
+            <input type="text" class="form-control" [(ngModel)]="item.orderDesc" id="orderDesc" name="orderDesc" #orderDesc="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="businessName">Business Name</label>
+            <input type="text" class="form-control" [(ngModel)]="item.businessName" id="businessName" name="businessName" #businessName="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="currency">Currency</label>
+            <input type="text" class="form-control" [(ngModel)]="item.currency" id="currency" name="currency" #currency="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="price">Price</label>
+            <input type="number" class="form-control" [(ngModel)]="item.price" id="price" name="price" #price="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="currencyCode">Currency Code</label>
+            <input type="text" class="form-control" [(ngModel)]="item.currencyCode" id="currencyCode" name="currencyCode" #currencyCode="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="rateAdjustment">Rate Adjustment</label>
+            <input type="text" class="form-control" [(ngModel)]="item.rateAdjustment" id="rateAdjustment" name="rateAdjustment" #rateAdjustment="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="callbackUrl">Callback Url</label>
+            <input type="text" class="form-control" [(ngModel)]="item.callbackUrl" id="callbackUrl" name="callbackUrl" #callbackUrl="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="returnUrl">Return Url</label>
+            <input type="text" class="form-control" [(ngModel)]="item.returnUrl" id="returnUrl" name="returnUrl" #returnUrl="ngModel">
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" for="email">Subscription notification email address</label>
+            <input type="text" class="form-control" [(ngModel)]="item.email" id="email" name="email" #email="ngModel">
+        </div>
+        <div class="wrap-btn-checkout text-center">
+          <button class="btn btn-checkout mt-16" type="submit">
+              Checkout
+          </button>
+        </div>
+    </form>
 </div>

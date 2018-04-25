@@ -5,7 +5,7 @@ import { UserRouteAccessService } from '../../shared';
 
 export const itemRoute: Routes = [
     {
-        path: 'checkout',
+        path: 'checkout/:id',
         component: ItemComponent,
         data: {
             authorities: [],

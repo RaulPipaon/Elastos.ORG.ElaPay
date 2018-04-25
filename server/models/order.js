@@ -6,12 +6,13 @@ const schema = mongoose.Schema({
   orderId: String,
   businessName: String,
   currency: String,
-  price: String,
+  price: Number,
   currencyCode: String,
   rateAdjustment: String,
   callbackUrl: String,
   returnUrl: String,
-  email: String
+  email: String,
+  createdDate: Date
 })
 
 export default mongoose.model('Order', schema)

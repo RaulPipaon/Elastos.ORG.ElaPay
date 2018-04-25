@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 import * as moment from 'moment';
 import { ItemService } from './item.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'jhi-home',
@@ -13,24 +15,26 @@ import { ItemService } from './item.service';
 })
 export class ItemComponent implements OnInit, OnDestroy {
     item: any;
+    private subscription: Subscription;
 
     constructor(
         private itemService: ItemService,
         private eventManager: JhiEventManager,
         private router: Router,
+        private route: ActivatedRoute
     ) {
     }
 
     ngOnInit() {
-        this.item = {
-            date: moment().toISOString(),
-            name: 'Order name',
-            description: 'Order description',
-            businessName: 'Business name',
-            orderId: 'Order ID',
-            cashEla: '0.00',
-            cashUsd: '0.00',
-        };
+        this.subscription = this.route.params.subscribe((params) => {
+            this.loadOrder(params['id']);
+        });
+    }
+
+    loadOrder(id) {
+        this.itemService.find(id).subscribe((order: any) => {
+            this.item = order.order;
+        });
     }
 
     handleClickPay() {
@@ -42,5 +46,6 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }

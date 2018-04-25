@@ -14,6 +14,8 @@ export function createOrder(options) {
     email
   } = options
 
+  let createdDate = new Date()
+
   const order = new Order({
     orderName,
     orderDesc,
@@ -25,7 +27,8 @@ export function createOrder(options) {
     rateAdjustment,
     callbackUrl,
     returnUrl,
-    email
+    email,
+    createdDate
   })
 
   return order.save()
