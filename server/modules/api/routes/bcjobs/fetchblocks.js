@@ -116,7 +116,7 @@ process.on('message',function(msg){
 
 								    var obtainedBHeight = data.Result;
 
-		  	                    fetch(blockHeightDetailsURL+5185)
+		  	                    fetch(blockHeightDetailsURL+data.Result)
 									  .then((response) => response.json())
 									  .then(function(txdata) {
 										   var blockTxDetail = txdata.Result;
