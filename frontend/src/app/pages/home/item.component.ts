@@ -45,7 +45,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     checkout() {
         this.itemService.save(this.item).subscribe((data) => {
             console.log('data', data);
-            this.router.navigate(['/checkout']);
+            this.router.navigate([`/checkout/${data.order._id}`]);
         }, (err) => {
             console.log('err', err);
         });

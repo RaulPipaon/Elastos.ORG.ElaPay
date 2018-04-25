@@ -1,4 +1,5 @@
 import { createOrder, getOrder } from 'services/order'
+import config from 'config/config'
 
 export async function create(req, res, next) {
   let {
@@ -29,12 +30,19 @@ export async function create(req, res, next) {
     email
   })
 
-  res.json({order: order})
+  if (!order) {
+    return res.status(500).json({error: 'Error'});
+  }
+  res.status(200).json({order: order})
 }
 
 export async function orderDetail(req, res, next) {
   let { id } = req.params
 
   const order = await getOrder(id)
-  res.json({order: order})
+
+  if (!order) {
+    return res.status(500).json({error: 'Error'});
+  }
+  res.status(200).json({order: order})
 }
