@@ -42,7 +42,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     handleClickClose() {
-        alert('TODO handleClickClose');
+        window.location.href = this.item.returnUrl || '/';
     }
 
     ngOnDestroy() {
