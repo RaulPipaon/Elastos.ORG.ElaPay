@@ -21,15 +21,18 @@
   "dependencies": {
     "babel-cli": "6.26.0",
     "bluebird": "3.5.1",
-    "body-parser": "1.18.2",
+    "body-parser": "^1.18.2",
     "cors": "2.8.4",
-    "express": "4.16.2",
+    "express": "^3.21.2",
     "express-http-proxy": "1.1.0",
     "jsonwebtoken": "8.2.0",
     "mongoose": "5.0.7",
     "morgan": "1.9.0",
+    "node-fetch": "^2.1.2",
     "nodemon": "1.17.1",
-    "recursive-config": "1.0.1"
+    "recursive-config": "1.0.1",
+    "request": "^2.85.0",
+    "validate-currency-code": "^0.1.0"
   },
   "devDependencies": {
     "babel-plugin-module-resolver": "3.1.0",
