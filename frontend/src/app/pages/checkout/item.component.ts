@@ -38,7 +38,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     handleClickPay() {
-        alert('TODO handleClickPay');
+        window.location.href = 'https://wallet.elastos.org';
     }
 
     handleClickClose() {
