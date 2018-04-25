@@ -2,7 +2,7 @@ import cluster from 'cluster'
 import os from 'os'
 import express from 'express'
 import morgan from 'morgan'
-import config from './config/config'
+import { SERVER_PORT } from 'config/config'
 import mongoose from 'mongoose'
 import api from 'modules/api'
 
@@ -15,4 +15,4 @@ system.get('/', (req, res) => {
 })
 
 system.use(morgan('dev'))
-system.listen(config.serverPort, () => console.log(`Server listen to :${config.serverPort}`))
+system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`))
