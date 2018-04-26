@@ -10,8 +10,8 @@ import {
 export default app => {
     app.post('/order', createOrder)
     app.get('/order/:id', getOrder)
-    app.get('/elaprices', elaprices.details);
-    app.get('/querytx', querytx.details);
-    app.post('/subscribewithdetails', subscribewithdetails.details);
-    app.post('/subscribewithtx', subscribewithtx.details);
+    app.get('/getamountinela', elaprices.details);
+    app.get('/gettxdetails', querytx.details);
+    app.post('/postdetailsforcallback', subscribewithdetails.details);
+    app.post('/posttxdetailsforcallback', subscribewithtx.details);
 }
