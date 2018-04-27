@@ -15,7 +15,8 @@ const schema = mongoose.Schema({
     callbackUrl: String,
     returnUrl: String,
     email: String,
-    createdDate: Date
+    createdDate: Date,
+    walletAddress: String
 })
 
 export default mongoose.model('Order', schema)

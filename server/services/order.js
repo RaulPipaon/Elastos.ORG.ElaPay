@@ -15,7 +15,8 @@ export function createOrder(options) {
         rateAdjustment,
         callbackUrl,
         returnUrl,
-        email
+        email,
+        walletAddress
     } = options
 
     let createdDate = new Date()
@@ -35,7 +36,8 @@ export function createOrder(options) {
         callbackUrl,
         returnUrl,
         email,
-        createdDate
+        createdDate,
+        walletAddress
     })
 
     return order.save()

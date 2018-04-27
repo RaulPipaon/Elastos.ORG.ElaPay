@@ -16,7 +16,8 @@ export async function create(req, res, next) {
         rateAdjustment,
         callbackUrl,
         returnUrl,
-        email
+        email,
+        walletAddress
     } = req.body
 
     const order = await createOrder({
@@ -33,7 +34,8 @@ export async function create(req, res, next) {
         rateAdjustment,
         callbackUrl,
         returnUrl,
-        email
+        email,
+        walletAddress
     })
 
     if (!order) {
