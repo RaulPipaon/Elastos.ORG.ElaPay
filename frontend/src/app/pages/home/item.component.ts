@@ -45,7 +45,8 @@ export class ItemComponent implements OnInit, OnDestroy {
             callbackUrl: '',
             returnUrl: '',
             email: '',
-            price: null
+            price: null,
+            walletAddress: ''
         };
     }
 
