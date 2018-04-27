@@ -4,9 +4,13 @@
   "description": "Ela pay service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js --watch . --exec babel-node --CONFIG=./config.dev.js",
-    "prod": "NODE_ENV=production node index.js"
+    "start": "nodemon index.js --watch . --exec babel-node",
+    "build": "yarn build:config && yarn build:models && yarn build:modules && yarn build:services && yarn build:index",
+    "build:config": "babel ./config -d build/config",
+    "build:models": "babel ./models -d build/models",
+    "build:modules": "babel ./modules -d build/modules",
+    "build:services": "babel ./services -d build/services",
+    "build:index": "babel index.js -d build"
   },
   "repository": {
     "type": "git",
