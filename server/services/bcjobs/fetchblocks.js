@@ -26,7 +26,7 @@ process.on('message', function(msg) {
                 var date = new Date();
                 mongoClient.connect(constants.MONGOURL, function(err, db) {
                     if (err) {
-                        db.close();
+                        //db.close();
                         throw err;
                     } else {
                         //Check collection to get recent block height
