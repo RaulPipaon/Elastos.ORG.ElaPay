@@ -7,13 +7,10 @@ export async function create(req, res, next) {
         exchangeRate,
         queryTime,
         orderDesc,
-        orderId,
         businessName,
         orderName,
         currency,
         price,
-        currencyCode,
-        rateAdjustment,
         callbackUrl,
         returnUrl,
         email,
@@ -24,13 +21,10 @@ export async function create(req, res, next) {
         !exchangeRate ||
         !queryTime ||
         !orderDesc ||
-        !orderId ||
         !businessName ||
         !orderName ||
         !currency ||
         !price ||
-        !currencyCode ||
-        !rateAdjustment ||
         !callbackUrl ||
         !returnUrl ||
         !email ||
@@ -43,13 +37,10 @@ export async function create(req, res, next) {
         exchangeRate,
         queryTime,
         orderDesc,
-        orderId,
         businessName,
         orderName,
         currency,
         price,
-        currencyCode,
-        rateAdjustment,
         callbackUrl,
         returnUrl,
         email,

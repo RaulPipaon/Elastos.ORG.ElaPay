@@ -39,7 +39,6 @@ export class ItemComponent implements OnInit, OnDestroy {
             elaAmount: null,
             exchangeRate: null,
             queryTime: null,
-            orderId: '',
             businessName: '',
             currency: 'USD',
             callbackUrl: '',
