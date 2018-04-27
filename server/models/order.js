@@ -1,7 +1,9 @@
 import mongoose from 'config/mongoose'
 
 const schema = mongoose.Schema({
-    amount: Number,
+    elaAmount: Number,
+    exchangeRate: String,
+    queryTime: String,
     orderName: String,
     orderDesc: String,
     orderId: String,

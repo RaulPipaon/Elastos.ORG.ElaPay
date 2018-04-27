@@ -10,4 +10,12 @@ export class ItemService {
     save(item: any): Observable<any> {
         return this.http.post(`${SERVER_API_URL}api/order`, item);
     }
+
+    getRateWithCurrency(symbol: string, amount: string): Observable<any> {
+        return this.http.get<any>(`${SERVER_API_URL}api/getamountinela/?symbol=${symbol}&amount=${amount}`, {
+            observe: 'response'
+        }).map((data) => {
+            return data.body;
+        });
+    }
 }

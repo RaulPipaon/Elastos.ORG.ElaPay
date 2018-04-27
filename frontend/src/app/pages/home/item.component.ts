@@ -17,8 +17,11 @@ export class ItemComponent implements OnInit, OnDestroy {
         'CNY/RMB',
         'INR',
         'JPY',
-        'USD'
+        'USD',
+        // 'ELA'
     ];
+    isElaCurrency = false;
+    isSaving = false;
 
     constructor(
         private itemService: ItemService,
@@ -31,15 +34,18 @@ export class ItemComponent implements OnInit, OnDestroy {
 
         this.item = {
             date: moment().toISOString(),
-            orderName: 'Order name',
-            orderDesc: 'Order description',
-            amount: null,
+            orderName: '',
+            orderDesc: '',
+            elaAmount: null,
+            exchangeRate: null,
+            queryTime: null,
             orderId: '',
-            businessName: 'Business name',
+            businessName: '',
             currency: 'USD',
             callbackUrl: '',
             returnUrl: '',
-            email: ''
+            email: '',
+            price: null
         };
     }
 
@@ -48,12 +54,33 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     checkout() {
+        this.isSaving = true;
+        this.itemService.getRateWithCurrency(this.item.currency, this.item.price).subscribe((data: any) => {
+            this.item.elaAmount = data.elaAmount;
+            this.item.exchangeRate = data.exchangeRate;
+            this.item.queryTime = data.queryTime;
+
+            this.save();
+        });
+    }
+
+    save() {
         this.itemService.save(this.item).subscribe((data) => {
             console.log('data', data);
+            this.isSaving = false;
             this.router.navigate([`/checkout/${data.order._id}`]);
         }, (err) => {
+            this.isSaving = false;
             console.log('err', err);
         });
+    }
+
+    selectedCurrency() {
+        if (this.item.currency === 'ELA') {
+            return this.isElaCurrency = true;
+        }
+
+        this.isElaCurrency = false;
     }
 
     handleClickClose() {

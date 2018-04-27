@@ -2,7 +2,9 @@ import Order from 'models/order'
 
 export function createOrder(options) {
     let {
-        amount,
+        elaAmount,
+        exchangeRate,
+        queryTime,
         orderName,
         orderDesc,
         orderId,
@@ -19,7 +21,9 @@ export function createOrder(options) {
     let createdDate = new Date()
 
     const order = new Order({
-        amount,
+        elaAmount,
+        exchangeRate,
+        queryTime,
         orderName,
         orderDesc,
         orderId,
