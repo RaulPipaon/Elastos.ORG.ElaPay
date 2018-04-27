@@ -51,11 +51,12 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     checkout() {
         this.isSaving = true;
+        let currency = this.item.currency;
         if (this.item.currency === 'CNY/RMB') {
-            this.item.currency = 'CNY';
+            currency = 'CNY';
         }
 
-        this.itemService.getRateWithCurrency(this.item.currency, this.item.price).subscribe((data: any) => {
+        this.itemService.getRateWithCurrency(currency, this.item.price).subscribe((data: any) => {
 
             if (data.status === 'Not Success') {
                 return alert('Error get rate currency');

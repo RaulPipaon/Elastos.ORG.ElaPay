@@ -28,7 +28,7 @@ process.on('message', function(msg) {
                 //Connect to db and fetch data
                 mongoClient.connect(constants.MONGOURL, function(err, db) {
                     if (err) {
-                        db.close();
+                        //db.close();
                         throw err;
                     } else {
                         var dbo = db.db(constants.DBNAME);
