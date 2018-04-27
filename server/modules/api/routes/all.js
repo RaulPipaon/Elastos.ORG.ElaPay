@@ -7,9 +7,17 @@ import {
     orderDetail as getOrder
 } from '../controllers/order'
 
+import {
+    createTransaction,
+    transactionDetail
+} from '../controllers/transaction'
+
 export default app => {
-    app.post('/order', createOrder)
-    app.get('/order/:id', getOrder)
+    app.post('/order', createOrder);
+    app.get('/order/:id', getOrder);
+    app.post('/transaction', createTransaction);
+    app.get('/transaction/:id', transactionDetail);
+
     app.get('/getamountinela', elaprices.details);
     app.get('/gettxdetails', querytx.details);
     app.post('/postdetailsforcallback', subscribewithdetails.details);

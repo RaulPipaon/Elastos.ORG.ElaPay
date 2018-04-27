@@ -5,12 +5,12 @@
  * Code Reviewers : Noah and Song
  * FileName:constants.js
  * Usage:Used to store global constants.
- * Pending Items : 
+ * Pending Items :
  * Notes:
  *     ELATOUSDFREQUENCYINTERVAL : In minutes (2)
  *     BACKGROUNDJOBSTIMEINTERVAL : In milli seconds(10*1000 = 10,000)
  *     USDTOCURRENCYFREQUENCYINTERVAL : In days (1)
- *     
+ *
  */
 module.exports = Object.freeze({
     MONGOURL : "mongodb://52.15.131.100:27017/",
