@@ -20,6 +20,24 @@ export async function create(req, res, next) {
         walletAddress
     } = req.body
 
+    if (!elaAmount ||
+        !exchangeRate ||
+        !queryTime ||
+        !orderDesc ||
+        !orderId ||
+        !businessName ||
+        !orderName ||
+        !currency ||
+        !price ||
+        !currencyCode ||
+        !rateAdjustment ||
+        !callbackUrl ||
+        !returnUrl ||
+        !email ||
+        !walletAddress) {
+        return res.status(400).json({error: 'Missing params'});
+    }
+
     const order = await createOrder({
         elaAmount,
         exchangeRate,
@@ -54,3 +72,4 @@ export async function orderDetail(req, res, next) {
     }
     res.status(200).json({order: order})
 }
+

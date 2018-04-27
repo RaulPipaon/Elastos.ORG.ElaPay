@@ -50,10 +50,6 @@ export class ItemComponent implements OnInit, OnDestroy {
         };
     }
 
-    handleClickPay() {
-        alert('TODO handleClickPay');
-    }
-
     checkout() {
         this.isSaving = true;
         if (this.item.currency === 'CNY/RMB') {
@@ -80,7 +76,7 @@ export class ItemComponent implements OnInit, OnDestroy {
             this.router.navigate([`/checkout/${data.order._id}`]);
         }, (err) => {
             this.isSaving = false;
-            console.log('err', err);
+            return alert(err.error.error);
         });
     }
 
@@ -90,10 +86,6 @@ export class ItemComponent implements OnInit, OnDestroy {
         }
 
         this.isElaCurrency = false;
-    }
-
-    handleClickClose() {
-        alert('TODO handleClickClose');
     }
 
     ngOnDestroy() {
