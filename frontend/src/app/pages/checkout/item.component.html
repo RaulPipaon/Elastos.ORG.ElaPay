@@ -1,6 +1,6 @@
 <div class="wrap-component" *ngIf="item">
     <div class="wrap-btn-close close-button" (click)="handleClickClose()">
-        Close <i class="fa fa-times" aria-hidden="true"></i>
+        Back <i class="fa fa-times" aria-hidden="true"></i>
     </div>
     <div class="on-date mb-10">
         On {{ item.createdDate|momentFormatPipe:'DD.MM.YYYY' }}
@@ -23,10 +23,10 @@
     <div class="wrap-cast-outer">
         <div class="wrap-cash">
             <div class="cash-ele">
-                {{ item.amount }} ELA
+                {{ item.elaAmount }} ELA
             </div>
             <div class="cash-usd">
-                {{ item.amount }} USD
+                {{ item.price }} {{ item.currency }}
             </div>
         </div>
     </div>
