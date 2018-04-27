@@ -1,7 +1,9 @@
 import Order from 'models/order'
 
 export function createOrder(options) {
-    let { orderName,
+    let {
+        amount,
+        orderName,
         orderDesc,
         orderId,
         businessName,
@@ -17,6 +19,7 @@ export function createOrder(options) {
     let createdDate = new Date()
 
     const order = new Order({
+        amount,
         orderName,
         orderDesc,
         orderId,

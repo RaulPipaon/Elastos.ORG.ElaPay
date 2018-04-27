@@ -3,6 +3,7 @@ import config from 'config/config'
 
 export async function create(req, res, next) {
     let {
+        amount,
         orderDesc,
         orderId,
         businessName,
@@ -17,6 +18,7 @@ export async function create(req, res, next) {
     } = req.body
 
     const order = await createOrder({
+        amount,
         orderDesc,
         orderId,
         businessName,

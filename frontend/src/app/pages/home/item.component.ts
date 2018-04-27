@@ -13,6 +13,12 @@ import { ItemService } from './item.service';
 })
 export class ItemComponent implements OnInit, OnDestroy {
     item: any;
+    currencies = [
+        'CNY/RMB',
+        'INR',
+        'JPY',
+        'USD'
+    ];
 
     constructor(
         private itemService: ItemService,
@@ -22,16 +28,15 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+
         this.item = {
             date: moment().toISOString(),
             orderName: 'Order name',
             orderDesc: 'Order description',
+            amount: null,
             orderId: '',
             businessName: 'Business name',
-            currency: 'ELA',
-            price: 10,
-            currencyCode: 'ELA',
-            rateAdjustment: '',
+            currency: 'USD',
             callbackUrl: '',
             returnUrl: '',
             email: ''
