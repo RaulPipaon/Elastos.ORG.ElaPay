@@ -56,7 +56,16 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     checkout() {
         this.isSaving = true;
+        if (this.item.currency === 'CNY/RMB') {
+            this.item.currency = 'CNY';
+        }
+
         this.itemService.getRateWithCurrency(this.item.currency, this.item.price).subscribe((data: any) => {
+
+            if (data.status === 'Not Success') {
+                return alert('Error get rate currency');
+            }
+
             this.item.elaAmount = data.elaAmount;
             this.item.exchangeRate = data.exchangeRate;
             this.item.queryTime = data.queryTime;
@@ -67,7 +76,6 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     save() {
         this.itemService.save(this.item).subscribe((data) => {
-            console.log('data', data);
             this.isSaving = false;
             this.router.navigate([`/checkout/${data.order._id}`]);
         }, (err) => {

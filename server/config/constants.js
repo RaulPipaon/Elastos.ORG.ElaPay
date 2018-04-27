@@ -13,7 +13,7 @@
  *
  */
 module.exports = Object.freeze({
-    MONGOURL : "mongodb://52.15.131.100:27017/",
+    MONGOURL : "mongodb://localhost/",
     BCEXPLORERURL : "http://blockchain-test-05.eadd.co",
     ELAAPIURL  : "http://api-test-05.eadd.co:22334",
     CURRENCYURL : "http://www.apilayer.net/api/live?access_key=3e237efb6e565d8836feb494f3d9bbe0&format=1",
