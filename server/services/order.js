@@ -16,8 +16,6 @@ export function createOrder(options) {
         walletAddress
     } = options
 
-    let createdDate = new Date()
-
     const order = new Order({
         elaAmount,
         exchangeRate,
@@ -30,7 +28,6 @@ export function createOrder(options) {
         callbackUrl,
         returnUrl,
         email,
-        createdDate,
         walletAddress
     })
 

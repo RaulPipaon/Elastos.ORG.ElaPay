@@ -8,14 +8,11 @@ export function create(options) {
         status
     } = options
 
-    let createdDate = new Date()
-
     const transaction = new Transaction({
         transactionHash,
         orderId,
         transactionInfor,
-        status,
-        createdDate
+        status
     })
 
     return transaction.save()
