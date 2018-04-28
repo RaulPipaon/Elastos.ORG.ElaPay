@@ -22,6 +22,7 @@ export class ItemComponent implements OnInit, OnDestroy {
     ];
     isElaCurrency = false;
     isSaving = false;
+    state: any;
 
     constructor(
         private itemService: ItemService,
@@ -47,27 +48,44 @@ export class ItemComponent implements OnInit, OnDestroy {
             price: null,
             walletAddress: ''
         };
+
+        this.state = {
+            discountPecent: null
+        };
     }
 
     checkout() {
         this.isSaving = true;
+        let price = this.item.price;
         let currency = this.item.currency;
+
         if (this.item.currency === 'CNY/RMB') {
             currency = 'CNY';
         }
 
-        this.itemService.getRateWithCurrency(currency, this.item.price).subscribe((data: any) => {
+        if (this.state.discountPecent) {
+            if (this.state.discountPecent > 100 || this.state.discountPecent < 0) {
+                return alert('Error: Discount percent must between from 0% to 100%');
+            }
+
+            price = price * (1 - this.state.discountPecent / 100);
+        }
+
+        this.itemService.getRateWithCurrency(currency, price).subscribe((data: any) => {
 
             if (data.status === 'Not Success') {
                 return alert('Error get rate currency');
             }
 
-            this.item.elaAmount = data.elaAmount;
-            this.item.exchangeRate = data.exchangeRate;
-            this.item.queryTime = data.queryTime;
-
+            this.saveRateAdjustments(data);
             this.save();
         });
+    }
+
+    saveRateAdjustments(data) {
+        this.item.elaAmount = data.elaAmount;
+        this.item.exchangeRate = data.exchangeRate;
+        this.item.queryTime = data.queryTime;
     }
 
     save() {
