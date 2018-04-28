@@ -1,23 +1,19 @@
-import { create, findById } from 'services/transaction'
+import { create, findById, updateStatus } from 'services/transaction'
 import config from 'config/config'
 
 export async function createTransaction(req, res, next) {
     let {
-        transactionHash,
         orderId,
-        transactionInfor,
         status
     } = req.body
 
     const transaction = await create({
-        transactionHash,
         orderId,
-        transactionInfor,
         status
     })
 
-    if (!order) {
-        return res.status(500).json({error: 'Error'});
+    if (!transaction) {
+        return res.status(500).json({error: 'Error'})
     }
     res.status(200).json({transaction: transaction})
 }
@@ -31,4 +27,15 @@ export async function transactionDetail(req, res, next) {
         return res.status(500).json({error: 'Error'});
     }
     res.status(200).json({transaction: transaction})
+}
+
+export async function updateStatusTransaction(req, res, next) {
+    let { id, status} = req.body
+
+    const transaction = await updateStatus(id, status)
+
+    if (!transaction) {
+        return res.status(500).json({error: 'Error'})
+    }
+    res.status(200).json()
 }

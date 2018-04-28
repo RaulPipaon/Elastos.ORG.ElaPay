@@ -2,16 +2,12 @@ import Transaction from 'models/transaction'
 
 export function create(options) {
     let {
-        transactionHash,
         orderId,
-        transactionInfor,
         status
     } = options
 
     const transaction = new Transaction({
-        transactionHash,
         orderId,
-        transactionInfor,
         status
     })
 
@@ -20,4 +16,10 @@ export function create(options) {
 
 export function findById(id) {
     return Transaction.findById(id)
+}
+
+export function updateStatus(id, status) {
+    return Transaction.findByIdAndUpdate(id, {
+        status: status
+    })
 }

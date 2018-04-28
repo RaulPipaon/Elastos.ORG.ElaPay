@@ -9,7 +9,8 @@ import {
 
 import {
     createTransaction,
-    transactionDetail
+    transactionDetail,
+    updateStatusTransaction
 } from '../controllers/transaction'
 
 export default app => {
@@ -17,6 +18,7 @@ export default app => {
     app.get('/order/:id', getOrder);
     app.post('/transaction', createTransaction);
     app.get('/transaction/:id', transactionDetail);
+    app.put('/transaction/status', updateStatusTransaction);
 
     app.get('/getamountinela', elaprices.details);
     app.get('/gettxdetails', querytx.details);

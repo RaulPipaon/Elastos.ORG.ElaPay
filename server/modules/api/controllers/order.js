@@ -1,4 +1,5 @@
 import { createOrder, getOrder } from 'services/order'
+import { create as createTransaction } from 'services/transaction'
 import config from 'config/config'
 
 export async function create(req, res, next) {
@@ -50,7 +51,17 @@ export async function create(req, res, next) {
     if (!order) {
         return res.status(500).json({error: 'Error'});
     }
-    res.status(200).json({order: order})
+
+    const transaction = await createTransactionWithOrder(order._id)
+
+    if (!transaction) {
+        return res.status(500).json({error: 'Error'});
+    }
+
+    res.status(200).json({
+        order: order,
+        transaction: transaction
+    })
 }
 
 export async function orderDetail(req, res, next) {
@@ -64,3 +75,9 @@ export async function orderDetail(req, res, next) {
     res.status(200).json({order: order})
 }
 
+async function createTransactionWithOrder(orderId) {
+    return await createTransaction({
+        orderId: orderId,
+        status: 'new'
+    })
+}
