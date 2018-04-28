@@ -814,7 +814,7 @@ bluebird@3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
-body-parser@^1.18.2:
+body-parser@1.18.2:
   version "1.18.2"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.18.2.tgz#87678a19d84b47d859b83199bd59bce222b10454"
   dependencies:
@@ -1499,7 +1499,7 @@ express-session@~1.11.3:
     uid-safe "~2.0.0"
     utils-merge "1.0.0"
 
-express@^3.21.2:
+express@3.21.2:
   version "3.21.2"
   resolved "https://registry.yarnpkg.com/express/-/express-3.21.2.tgz#0c2903ee5c54e63d65a96170764703550665a3de"
   dependencies:
@@ -2648,7 +2648,7 @@ negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
 
-node-fetch@^2.1.2:
+node-fetch@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.1.2.tgz#ab884e8e7e57e38a944753cec706f788d1768bb5"
 
@@ -3199,7 +3199,7 @@ request@2.81.0:
     tunnel-agent "^0.6.0"
     uuid "^3.0.0"
 
-request@^2.85.0:
+request@2.85.0:
   version "2.85.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.85.0.tgz#5a03615a47c61420b3eb99b7dba204f83603e1fa"
   dependencies:
@@ -3842,7 +3842,7 @@ v8flags@^2.1.1:
   dependencies:
     user-home "^1.1.1"
 
-validate-currency-code@^0.1.0:
+validate-currency-code@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/validate-currency-code/-/validate-currency-code-0.1.0.tgz#f67f540cf467cbf43c718f69aea8843102b59fdc"
 

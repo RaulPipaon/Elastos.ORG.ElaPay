@@ -5404,7 +5404,11 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-moment@^2.11.2, moment@^2.22.0:
+moment@2.22.0:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.0.tgz#7921ade01017dd45186e7fee5f424f0b8663a730"
+
+moment@^2.11.2:
   version "2.22.1"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.22.1.tgz#529a2e9bf973f259c9643d237fda84de3a26e8ad"
 
@@ -5763,7 +5767,7 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
-numeral@^2.0.6:
+numeral@2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/numeral/-/numeral-2.0.6.tgz#4ad080936d443c2561aed9f2197efffe25f4e506"
 
@@ -6706,9 +6710,9 @@ range-parser@^1.0.3, range-parser@^1.2.0, range-parser@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.0.tgz#f49be6b487894ddc40dcc94a322f611092e00d5e"
 
-raven-js@^3.24.0:
-  version "3.24.2"
-  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.24.2.tgz#c5cacb363b198812e80cd4c6714e5e478549ebcf"
+raven-js@3.24.0:
+  version "3.24.0"
+  resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.24.0.tgz#59464d8bc4b3812ae87a282e9bb98ecad5b4b047"
 
 raw-body@2.3.2:
   version "2.3.2"
@@ -8196,7 +8200,7 @@ to-string-loader@1.1.5:
   dependencies:
     loader-utils "^0.2.16"
 
-toastr@^2.1.4:
+toastr@2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/toastr/-/toastr-2.1.4.tgz#8b43be64fb9d0c414871446f2db8e8ca4e95f181"
   dependencies:
