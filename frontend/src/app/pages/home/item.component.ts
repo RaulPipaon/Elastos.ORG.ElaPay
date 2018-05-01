@@ -56,7 +56,6 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     checkout() {
         this.isSaving = true;
-        let price = this.item.price;
         let currency = this.item.currency;
 
         if (this.item.currency === 'CNY/RMB') {
@@ -68,10 +67,10 @@ export class ItemComponent implements OnInit, OnDestroy {
                 return alert('Error: Discount percent must between from 0% to 100%');
             }
 
-            price = price * (1 - this.state.discountPecent / 100);
+            this.item.price = this.item.price * (1 - this.state.discountPecent / 100);
         }
 
-        this.itemService.getRateWithCurrency(currency, price).subscribe((data: any) => {
+        this.itemService.getRateWithCurrency(currency, this.item.price).subscribe((data: any) => {
 
             if (data.status === 'Not Success') {
                 return alert('Error get rate currency');
