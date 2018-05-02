@@ -62,14 +62,6 @@ export class ItemComponent implements OnInit, OnDestroy {
             currency = 'CNY';
         }
 
-        if (this.state.discountPecent) {
-            if (this.state.discountPecent > 100 || this.state.discountPecent < 0) {
-                return alert('Error: Discount percent must between from 0% to 100%');
-            }
-
-            this.item.price = this.item.price * (1 - this.state.discountPecent / 100);
-        }
-
         this.itemService.getRateWithCurrency(currency, this.item.price).subscribe((data: any) => {
 
             if (data.status === 'Not Success') {
@@ -82,9 +74,19 @@ export class ItemComponent implements OnInit, OnDestroy {
     }
 
     saveRateAdjustments(data) {
-        this.item.elaAmount = data.elaAmount;
-        this.item.exchangeRate = data.exchangeRate;
+        let elaAmount = data.elaAmount;
+        let exchangeRate = data.exchangeRate;
         this.item.queryTime = data.queryTime;
+
+        if (this.state.discountPecent) {
+            let rate = this.state.discountPecent / 100;
+
+            elaAmount = elaAmount - (elaAmount * rate);
+            exchangeRate = exchangeRate - (exchangeRate * rate);
+        }
+
+        this.item.elaAmount = elaAmount;
+        this.item.exchangeRate = exchangeRate;
     }
 
     save() {
