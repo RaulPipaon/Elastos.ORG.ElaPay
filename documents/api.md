@@ -64,7 +64,7 @@ txhash
 ```
 - Response: code: 200.
 
-### API: /api/subscribewithdetails
+### API: /api/postdetailsforcallback
 - Method: POST
 - Request params:
 ```javascript
