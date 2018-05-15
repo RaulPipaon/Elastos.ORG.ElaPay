@@ -1,4 +1,4 @@
-# Document deployment
+# Elapay deployment document
 ## Config source code:
 ### Frontend:
 - Config port url call server in file: /frontend/src/app/app.constants.ts line 9, with variable const SERVER_API_URL (default = 3002)
