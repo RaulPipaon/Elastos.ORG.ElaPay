@@ -54,7 +54,7 @@ status
 symbol,
 amount
 ```
-- Response: code: 200.
+- Response: code: 200,elaamount,exchangerate,querytime
 
 ### API: /api/gettxdetails
 - Method: GET
@@ -62,7 +62,7 @@ amount
 ```javascript
 txhash
 ```
-- Response: code: 200.
+- Response: code: 200,status,txhash,trackingurl
 
 ### API: /api/postdetailsforcallback
 - Method: POST
@@ -73,7 +73,7 @@ receiveraddress,
 elaamount,
 callbackurl
 ```
-- Response: code: 200.
+- Response: code: 200,status,details
 
 ### API: /api/posttxdetailsforcallback
 - Method: POST
@@ -82,4 +82,4 @@ callbackurl
 txhash,
 callbackurl
 ```
-- Response: code: 200.
+- Response: code: 200,status,details
