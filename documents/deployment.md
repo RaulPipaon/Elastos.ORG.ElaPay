@@ -19,10 +19,11 @@
 - Install all package in file package.json: yarn
 - Rund Server with development environment: yarn start
 ## Deploy production:
-###Deploy Frontend:
+### Deploy Frontend:
 - Access to the directory /frontend: cd frontend
 - Build for production: yarn build when build done source code build in folder: frontend/target/www
 - Setting nginx: sudo nano /etc/nginx/nginx.conf add command in block htttp:
+```javascript
 server {
     listen       8000;
     listen       [::]:8000;
@@ -35,6 +36,7 @@ server {
         try_files $uri $uri/ /index.html =404;
     }
 }
+```
 ### Deploy Server:
 - Access to the dicrectory /server: cd server
 - Install pm2 process manager: npm install -g pm2
