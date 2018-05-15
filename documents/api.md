@@ -46,3 +46,40 @@ id,
 status
 ```
 - Response: code: 200.
+
+### API: /api/getamountinela
+- Method: GET
+- Request params:
+```javascript
+symbol,
+amount
+```
+- Response: code: 200.
+
+### API: /api/gettxdetails
+- Method: GET
+- Request params:
+```javascript
+txhash
+```
+- Response: code: 200.
+
+### API: /api/subscribewithdetails
+- Method: POST
+- Request params:
+```javascript
+senderaddress,
+receiveraddress,
+elaamount,
+callbackurl
+```
+- Response: code: 200.
+
+### API: /api/posttxdetailsforcallback
+- Method: POST
+- Request params:
+```javascript
+txhash,
+callbackurl
+```
+- Response: code: 200.
