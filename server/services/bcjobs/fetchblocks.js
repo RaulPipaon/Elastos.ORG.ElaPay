@@ -100,7 +100,7 @@ process.on('message', function(msg) {
                                             }
                                         }).catch(function(error) {
                                             console.log(error);
-                                            db.close();
+                                            //db.close();
                                         });
                                 }
                             } else {
