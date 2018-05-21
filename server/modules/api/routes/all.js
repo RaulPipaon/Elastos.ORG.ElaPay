@@ -1,5 +1,6 @@
 import elaprices from 'modules/api/controllers/elaprice'
 import querytx from 'modules/api/controllers/querytx'
+import checktx from 'modules/api/controllers/checktx'
 import subscribewithdetails from 'modules/api/controllers/subscriptiondetails'
 import subscribewithtx from 'modules/api/controllers/subscriptionhash'
 import {
@@ -22,6 +23,8 @@ export default app => {
 
     app.get('/getamountinela', elaprices.details);
     app.get('/gettxdetails', querytx.details);
+    app.get('/checktx', checktx.details);
+
     app.post('/postdetailsforcallback', subscribewithdetails.details);
     app.post('/posttxdetailsforcallback', subscribewithtx.details);
 }

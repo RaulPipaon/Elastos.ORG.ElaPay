@@ -64,12 +64,14 @@ process.on('message', function(msg) {
                                                             "type": "coinbase"
                                                         });
                                                     } else {
+                                                    	var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data,'hex').toString('utf8');
                                                         blockDataArray.push({
                                                             "txhash": txtdata.Transactions[j].Hash,
                                                             "amount": txtdata.Transactions[j].Outputs[0].Value,
                                                             "senderAddress": txtdata.Transactions[j].UTXOInputs[0].Address,
                                                             "receiverAddress": txtdata.Transactions[j].Outputs[0].Address,
                                                             "timestamp": txtdata.Transactions[j].Timestamp,
+                                                            "orderId":orderId,
                                                             "blockcheight": txtdata.BlockData.Height,
                                                             "type": "notcoinbase"
                                                         });
@@ -127,12 +129,14 @@ process.on('message', function(msg) {
                                                                 "type": "coinbase"
                                                             });
                                                         } else {
+                                                        	var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data,'hex').toString('utf8');
                                                             blockTransactionDetails.push({
                                                                 "txhash": blockTxDetail.Transactions[i].Hash,
                                                                 "amount": blockTxDetail.Transactions[i].Outputs[0].Value,
                                                                 "senderAddress": blockTxDetail.Transactions[i].UTXOInputs[0].Address,
                                                                 "receiverAddress": blockTxDetail.Transactions[i].Outputs[0].Address,
                                                                 "timestamp": blockTxDetail.Transactions[i].Timestamp,
+                                                                "orderId":orderId,
                                                                 "blockcheight": blockTxDetail.BlockData.Height,
                                                                 "type": "notcoinbase"
                                                             });

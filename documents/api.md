@@ -83,3 +83,12 @@ txhash,
 callbackurl
 ```
 - Response: code: 200,status,details
+
+### API: /api/checktx
+- Method: GET
+- Request params:
+```javascript
+txhash,orderid
+
+```
+- Response: code: 200,status,txHash,trackingURL
