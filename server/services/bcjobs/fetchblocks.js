@@ -46,7 +46,7 @@ process.on('message', function(msg) {
                                     //Add +1 to blockheight to get next block
                                     blockHeight = blockHeight + 1;
                                     //Call API and fetch details
-                                    fetch(constants.ELAAPIURL+constants.BLOCKHEIGHTDETAILLOCATION + blockHeight)
+                                    fetch(constants.ELAAPIURL + constants.BLOCKHEIGHTDETAILLOCATION + blockHeight)
                                         .then((response) => response.json())
                                         .then(function(txtransactiondata) {
                                             var txtdata = txtransactiondata.Result;
@@ -64,14 +64,16 @@ process.on('message', function(msg) {
                                                             "type": "coinbase"
                                                         });
                                                     } else {
-                                                    	var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data,'hex').toString('utf8');
+                                                        var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data, 'hex').toString('utf8');
+                                                        var amount = parseFloat(txtdata.Transactions[j].Outputs[0].Value);
                                                         blockDataArray.push({
                                                             "txhash": txtdata.Transactions[j].Hash,
                                                             "amount": txtdata.Transactions[j].Outputs[0].Value,
+                                                            "amountAsDouble": amount,
                                                             "senderAddress": txtdata.Transactions[j].UTXOInputs[0].Address,
                                                             "receiverAddress": txtdata.Transactions[j].Outputs[0].Address,
                                                             "timestamp": txtdata.Transactions[j].Timestamp,
-                                                            "orderId":orderId,
+                                                            "orderId": orderId,
                                                             "blockcheight": txtdata.BlockData.Height,
                                                             "type": "notcoinbase"
                                                         });
@@ -106,11 +108,11 @@ process.on('message', function(msg) {
                                         });
                                 }
                             } else {
-                                fetch(constants.ELAAPIURL+constants.BLOCKHEIGHTLOCATION)
+                                fetch(constants.ELAAPIURL + constants.BLOCKHEIGHTLOCATION)
                                     .then((response) => response.json())
                                     .then(function(data) {
                                         var obtainedBHeight = data.Result;
-                                        fetch(constants.ELAAPIURL+constants.BLOCKHEIGHTDETAILLOCATION + data.Result)
+                                        fetch(constants.ELAAPIURL + constants.BLOCKHEIGHTDETAILLOCATION + data.Result)
                                             .then((response) => response.json())
                                             .then(function(txdata) {
                                                 var blockTxDetail = txdata.Result;
@@ -129,14 +131,16 @@ process.on('message', function(msg) {
                                                                 "type": "coinbase"
                                                             });
                                                         } else {
-                                                        	var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data,'hex').toString('utf8');
+                                                            var orderId = Buffer.from(txtdata.Transactions[i].Attributes[0].Data, 'hex').toString('utf8');
+                                                            var amount = parseFloat(blockTxDetail.Transactions[i].Outputs[0].Value);
                                                             blockTransactionDetails.push({
                                                                 "txhash": blockTxDetail.Transactions[i].Hash,
                                                                 "amount": blockTxDetail.Transactions[i].Outputs[0].Value,
+                                                                "amountAsDouble": amount,
                                                                 "senderAddress": blockTxDetail.Transactions[i].UTXOInputs[0].Address,
                                                                 "receiverAddress": blockTxDetail.Transactions[i].Outputs[0].Address,
                                                                 "timestamp": blockTxDetail.Transactions[i].Timestamp,
-                                                                "orderId":orderId,
+                                                                "orderId": orderId,
                                                                 "blockcheight": blockTxDetail.BlockData.Height,
                                                                 "type": "notcoinbase"
                                                             });

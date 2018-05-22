@@ -12,7 +12,7 @@ var constants = require("config/constants");
 var mongoClient = require('mongodb').MongoClient;
 var response;
 var request;
-
+var amount = 0.0;
 //Get Request and Send Response
 exports.details = function(req, res) {
     var txHashUrl = constants.ELAAPIURL + constants.TXLOCATION + req.query.txhash;
@@ -27,37 +27,38 @@ exports.details = function(req, res) {
             action: "CheckIfTransactionPresent"
         }));
     } else {
-        checkBlockDB(req.query.txhash, req.query.orderid)
+        fetchAmountFromOrderDB(req.query.orderid)
+            .then(checkBlockDB)
             .then(sendresponse)
             .catch(error => console.log(error.message));
     }
 };
 
-//Call and check
-var checkBlockDB = function(txhash, orderid) {
+//Call Order Database to fetch amount based on orderid
+var fetchAmountFromOrderDB = function(orderid) {
     var subQuery = {};
-    subQuery["txhash"] = txhash;
-    subQuery["orderId"] = orderid;
+    var orderavailable = false;
+    subQuery["orderName"] = orderid;
     return new Promise(function(resolve, reject) {
-        var status = false;
         mongoClient.connect(constants.MONGOURL, function(err, db) {
             if (err) {
                 db.close();
                 throw err;
             } else {
                 var dbo = db.db(constants.DBNAME);
-                dbo.collection(constants.ELABLOCKDB).findOne(subQuery, function(err, result) {
+                dbo.collection(constants.ORDERCOLLECTIONNAME).findOne(subQuery, function(err, result) {
                     if (err) {
                         reject(err);
                         db.close();
                     } else {
                         if (result) {
-                            status = true;
-                            resolve(status);
+                            orderavailable = true;
+                            amount = result.elaAmount;
+                            resolve(orderavailable);
                             //db.close();
 
                         } else {
-                            resolve(status);
+                            resolve(orderavailable);
                             //db.close();
                         }
                     }
@@ -66,6 +67,50 @@ var checkBlockDB = function(txhash, orderid) {
             }
         });
     });
+}
+
+
+
+//Call and check if transaction exists on global blockchain
+var checkBlockDB = function(orderavailable) {
+    var status = false;
+    if (orderavailable) {
+        var subQuery = {};
+        subQuery["txhash"] = request.query.txhash;
+        subQuery["orderId"] = request.query.orderid;
+        subQuery["amountAsDouble"] = amount;
+        return new Promise(function(resolve, reject) {
+            mongoClient.connect(constants.MONGOURL, function(err, db) {
+                if (err) {
+                    db.close();
+                    throw err;
+                } else {
+                    var dbo = db.db(constants.DBNAME);
+                    dbo.collection(constants.ELABLOCKDB).findOne(subQuery, function(err, result) {
+                        if (err) {
+                            reject(err);
+                            db.close();
+                        } else {
+                            if (result) {
+                                status = true;
+                                resolve(status);
+                                //db.close();
+
+                            } else {
+                                resolve(status);
+                                //db.close();
+                            }
+                        }
+                        db.close();
+                    });
+                }
+            });
+        });
+    } else {
+
+    }
+
+
 }
 
 //Call and save
