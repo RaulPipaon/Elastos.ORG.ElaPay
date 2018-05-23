@@ -13,6 +13,7 @@ var mongoClient = require('mongodb').MongoClient;
 var response;
 var request;
 var amount = 0.0;
+var callbackURL;
 //Get Request and Send Response
 exports.details = function(req, res) {
     var txHashUrl = constants.ELAAPIURL + constants.TXLOCATION + req.query.txhash;
@@ -38,12 +39,19 @@ exports.details = function(req, res) {
 var fetchAmountFromOrderDB = function(orderid) {
     var subQuery = {};
     var orderavailable = false;
-    subQuery["orderName"] = orderid;
     return new Promise(function(resolve, reject) {
+        try {
+            var oIDMongo = require('mongodb');
+            var id = new oIDMongo.ObjectId(orderid);
+            subQuery["_id"] = id;
+        	} catch (err) {
+                resolve(orderavailable);
+        	}
         mongoClient.connect(constants.MONGOURL, function(err, db) {
             if (err) {
                 db.close();
-                throw err;
+                resolve(orderavailable);
+                //throw err;
             } else {
                 var dbo = db.db(constants.DBNAME);
                 dbo.collection(constants.ORDERCOLLECTIONNAME).findOne(subQuery, function(err, result) {
@@ -54,6 +62,8 @@ var fetchAmountFromOrderDB = function(orderid) {
                         if (result) {
                             orderavailable = true;
                             amount = result.elaAmount;
+                            callbackURL = result.callbackUrl
+
                             resolve(orderavailable);
                             //db.close();
 
@@ -83,7 +93,8 @@ var checkBlockDB = function(orderavailable) {
             mongoClient.connect(constants.MONGOURL, function(err, db) {
                 if (err) {
                     db.close();
-                    throw err;
+                    resolve(status);
+                    //throw err;
                 } else {
                     var dbo = db.db(constants.DBNAME);
                     dbo.collection(constants.ELABLOCKDB).findOne(subQuery, function(err, result) {
@@ -95,7 +106,6 @@ var checkBlockDB = function(orderavailable) {
                                 status = true;
                                 resolve(status);
                                 //db.close();
-
                             } else {
                                 resolve(status);
                                 //db.close();
@@ -107,10 +117,8 @@ var checkBlockDB = function(orderavailable) {
             });
         });
     } else {
-
+    	//DO NOTHING
     }
-
-
 }
 
 //Call and save
@@ -125,6 +133,7 @@ var sendresponse = function(status) {
                 action: "CheckIfTransactionPresent",
                 txHash: request.query.txhash,
                 trackingURL: trackURL,
+                callbackURL: callbackURL
             }));
             resolve(true);
         });
@@ -137,4 +146,5 @@ var sendresponse = function(status) {
             details: "TX hash is in-valid or not presnt in blockkhain yet"
         }));
     }
+
 }
