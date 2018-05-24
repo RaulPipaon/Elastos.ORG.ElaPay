@@ -89,6 +89,14 @@ callbackurl
 - Request params:
 ```javascript
 txhash,orderid
-
 ```
-- Response: code: 200,status,txHash,trackingURL
+- Response: code: 200,status,action,details
+
+### API: Get message to CallbackURL
+- Method: POST
+- Response params:
+```javascript
+txhash,orderid
+```
+- Response: code: 200,status,action,details
+
