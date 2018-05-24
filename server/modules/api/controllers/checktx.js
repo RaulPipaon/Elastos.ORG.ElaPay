@@ -14,6 +14,7 @@ var response;
 var request;
 var amount = 0.0;
 var callbackURL;
+
 //Get Request and Send Response
 exports.details = function(req, res) {
     var txHashUrl = constants.ELAAPIURL + constants.TXLOCATION + req.query.txhash;
@@ -29,7 +30,6 @@ exports.details = function(req, res) {
         }));
     } else {
         fetchAmountFromOrderDB(req.query.orderid)
-            .then(checkBlockDB)
             .then(sendresponse)
             .catch(error => console.log(error.message));
     }
@@ -44,9 +44,10 @@ var fetchAmountFromOrderDB = function(orderid) {
             var oIDMongo = require('mongodb');
             var id = new oIDMongo.ObjectId(orderid);
             subQuery["_id"] = id;
-        	} catch (err) {
-                resolve(orderavailable);
-        	}
+        } catch (err) {
+            resolve(orderavailable);
+            return;
+        }
         mongoClient.connect(constants.MONGOURL, function(err, db) {
             if (err) {
                 db.close();
@@ -56,20 +57,36 @@ var fetchAmountFromOrderDB = function(orderid) {
                 var dbo = db.db(constants.DBNAME);
                 dbo.collection(constants.ORDERCOLLECTIONNAME).findOne(subQuery, function(err, result) {
                     if (err) {
-                        reject(err);
+                        resolve(orderavailable);
                         db.close();
                     } else {
                         if (result) {
-                            orderavailable = true;
                             amount = result.elaAmount;
                             callbackURL = result.callbackUrl
-
-                            resolve(orderavailable);
-                            //db.close();
-
+                            //Save to DB
+                            var currenttimestamp = Math.floor(Date.now() / 1000);
+                            var elasubhashObj = {
+                                txhash: request.query.txhash,
+                                orderId: request.query.orderid,
+                                elaamount: amount,
+                                callbackurl: callbackURL,
+                                timestamp: currenttimestamp,
+                                status: "new"
+                            };
+                            dbo.collection(constants.ORDERIDCALLBACKDETAILS).insertOne(elasubhashObj, function(err, result) {
+                                if (err) {
+                                    console.log("Error with connection from file : checktx.js")
+                                    resolve(orderavailable);
+                                    throw err;
+                                } else {
+                                    orderavailable = true;
+                                    resolve(orderavailable);
+                                }
+                            });
+                            db.close();
                         } else {
                             resolve(orderavailable);
-                            //db.close();
+                            db.close();
                         }
                     }
                     db.close();
@@ -78,62 +95,17 @@ var fetchAmountFromOrderDB = function(orderid) {
         });
     });
 }
-
-
-
-//Call and check if transaction exists on global blockchain
-var checkBlockDB = function(orderavailable) {
-    var status = false;
-    if (orderavailable) {
-        var subQuery = {};
-        subQuery["txhash"] = request.query.txhash;
-        subQuery["orderId"] = request.query.orderid;
-        subQuery["amountAsDouble"] = amount;
-        return new Promise(function(resolve, reject) {
-            mongoClient.connect(constants.MONGOURL, function(err, db) {
-                if (err) {
-                    db.close();
-                    resolve(status);
-                    //throw err;
-                } else {
-                    var dbo = db.db(constants.DBNAME);
-                    dbo.collection(constants.ELABLOCKDB).findOne(subQuery, function(err, result) {
-                        if (err) {
-                            reject(err);
-                            db.close();
-                        } else {
-                            if (result) {
-                                status = true;
-                                resolve(status);
-                                //db.close();
-                            } else {
-                                resolve(status);
-                                //db.close();
-                            }
-                        }
-                        db.close();
-                    });
-                }
-            });
-        });
-    } else {
-    	//DO NOTHING
-    }
-}
-
 //Call and save
 var sendresponse = function(status) {
     if (status) {
         return new Promise(function(resolve, reject) {
             response.status(200);
             response.setHeader('Content-Type', 'application/json');
-            var trackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + request.query.txhash;
+            //var trackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + request.query.txhash;
             response.send(JSON.stringify({
                 status: "Success",
                 action: "CheckIfTransactionPresent",
-                txHash: request.query.txhash,
-                trackingURL: trackURL,
-                callbackURL: callbackURL
+                details: "A callback request will be sent when transaction is avilable on blockchain."
             }));
             resolve(true);
         });
@@ -143,7 +115,7 @@ var sendresponse = function(status) {
         response.send(JSON.stringify({
             status: "Not Success",
             action: "CheckIfTransactionPresent",
-            details: "TX hash is in-valid or not presnt in blockkhain yet"
+            details: "Order ID is in-valid"
         }));
     }
 

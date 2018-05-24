@@ -55,7 +55,7 @@ exports.details = function(req, res) {
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({
                             status: "Success",
-                            action: "SunscribeWithTransactionDetails",
+                            action: "SubscribeWithTransactionDetails",
                             details: "A callback request will be sent if there is a change in status of transaction you provided."
                         }));
                     }

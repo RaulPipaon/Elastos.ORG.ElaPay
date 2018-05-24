@@ -24,6 +24,7 @@ module.exports = Object.freeze({
     BLOCKHEIGHTDETAILLOCATION: "/api/v1/block/details/height/",
     DBNAME : "elaPay",
     ELADETAILSCOLLECTIONDBCALL : "callbackhashdetails",
+    ORDERIDCALLBACKDETAILS : "callbackorderiddetails",
     ELABLOCKDB : "elablockdb",
     ELAHASHCOLLECTION : "callbackhashdb",
     COLLECTIONNAME : "exchangeRatedb",
