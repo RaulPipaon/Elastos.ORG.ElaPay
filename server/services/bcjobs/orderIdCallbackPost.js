@@ -60,7 +60,7 @@ process.on('message', function(msg) {
                                             trackingURL: trackURL,
                                             details: "Transaction is now present on blockchain",
                                             status: " Success",
-                                            action: "GetTransactionsDetailsByHashToCallbackURL"
+                                            action: "GetTransactionsDetailsByOrderIdToCallbackURL"
                                         })
                                     }, function(error, response, body) {
                                         //Update record in DB
