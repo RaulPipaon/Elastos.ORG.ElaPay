@@ -1,7 +1,7 @@
 import cluster from 'cluster'
 import os from 'os'
 import express from 'express'
-import morgan from 'morgan'
+import morgan from 'morgan';
 import {
     SERVER_PORT
 } from 'config/config'
@@ -37,6 +37,9 @@ if (cluster.isMaster) {
     var constants = require("config/constants");
     const system = express()
 
+    morgan.format('elapay', '[Backend] :method :url :status :res[content-length] - :response-time ms');
+    system.use(morgan('elapay'));
+
     system.use(bodyParser.json());
     system.use(bodyParser.urlencoded({
         extended: true
@@ -69,9 +72,8 @@ if (cluster.isMaster) {
     system._retrieveTxBlockDetails.send(data);
     system._retrieveDetailsPerBlock.send(data);
     system._sendDetailsPerBlock.send(data);
-    system._retrieveOrderIdDetails.send(data); 
-    system._sendOrderIdDetails.send(data); 
+    system._retrieveOrderIdDetails.send(data);
+    system._sendOrderIdDetails.send(data);
 
-    system.use(morgan('dev'))
     system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`))
 }
