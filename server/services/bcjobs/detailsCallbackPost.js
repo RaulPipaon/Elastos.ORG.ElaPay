@@ -93,10 +93,10 @@ process.on('message', function(msg) {
                                     });
                                 }
                                 if (checkedAll) {
-                                    db.close();
+                                    //db.close();
                                 }
                             } else {
-                                db.close();
+                                //db.close();
                             }
                         });
                     }

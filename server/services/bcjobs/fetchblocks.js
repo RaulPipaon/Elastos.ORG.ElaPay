@@ -54,29 +54,33 @@ process.on('message', function(msg) {
                                             if (txtdata.length == 0 || txtdata == null || txtdata == "") {
                                                 //Do nothing
                                             } else {
-                                                for (var j = 0; j <= txtdata.Transactions.length - 1; j++) {
-                                                    //Check if coinbase transaction
-                                                    if (txtdata.Transactions[j].TxType == 0) {
-                                                        blockDataArray.push({
-                                                            "txhash": txtdata.Transactions[j].Hash,
-                                                            "timestamp": txtdata.Transactions[j].Timestamp,
-                                                            "blockcheight": txtdata.BlockData.Height,
-                                                            "type": "coinbase"
-                                                        });
-                                                    } else {
-                                                        var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data, 'hex').toString('utf8');
-                                                        var amount = parseFloat(txtdata.Transactions[j].Outputs[0].Value);
-                                                        blockDataArray.push({
-                                                            "txhash": txtdata.Transactions[j].Hash,
-                                                            "amount": txtdata.Transactions[j].Outputs[0].Value,
-                                                            "amountAsDouble": amount,
-                                                            "senderAddress": txtdata.Transactions[j].UTXOInputs[0].Address,
-                                                            "receiverAddress": txtdata.Transactions[j].Outputs[0].Address,
-                                                            "timestamp": txtdata.Transactions[j].Timestamp,
-                                                            "orderId": orderId,
-                                                            "blockcheight": txtdata.BlockData.Height,
-                                                            "type": "notcoinbase"
-                                                        });
+                                                if (txtdata == "Unknown Block") {
+                                                    return;
+                                                } else {
+                                                    for (var j = 0; j <= txtdata.Transactions.length - 1; j++) {
+                                                        //Check if coinbase transaction
+                                                        if (txtdata.Transactions[j].TxType == 0) {
+                                                            blockDataArray.push({
+                                                                "txhash": txtdata.Transactions[j].Hash,
+                                                                "timestamp": txtdata.Transactions[j].Timestamp,
+                                                                "blockcheight": txtdata.BlockData.Height,
+                                                                "type": "coinbase"
+                                                            });
+                                                        } else {
+                                                            var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data, 'hex').toString('utf8');
+                                                            var amount = parseFloat(txtdata.Transactions[j].Outputs[0].Value);
+                                                            blockDataArray.push({
+                                                                "txhash": txtdata.Transactions[j].Hash,
+                                                                "amount": txtdata.Transactions[j].Outputs[0].Value,
+                                                                "amountAsDouble": amount,
+                                                                "senderAddress": txtdata.Transactions[j].UTXOInputs[0].Address,
+                                                                "receiverAddress": txtdata.Transactions[j].Outputs[0].Address,
+                                                                "timestamp": txtdata.Transactions[j].Timestamp,
+                                                                "orderId": orderId,
+                                                                "blockcheight": txtdata.BlockData.Height,
+                                                                "type": "notcoinbase"
+                                                            });
+                                                        }
                                                     }
                                                 }
                                                 var query = {};

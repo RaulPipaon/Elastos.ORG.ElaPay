@@ -50,7 +50,7 @@ process.on('message', function(msg) {
                                         var d = new Date();
                                         subQuery["txhash"] = dbTxNewRecords[i].txhash;
                                         subQuery["orderId"] = dbTxNewRecords[i].orderId;
-                                        subQuery["amountAsDouble"] = dbTxNewRecords[i].elaamount;
+                                        subQuery["amountAsDouble"] = Math.round(parseFloat(dbTxNewRecords[i].elaamount)*100000000)/100000000;
                                         subQuery["type"] = "notcoinbase";
                                         dbo.collection(constants.ELABLOCKDB).find(subQuery).sort({
                                             'timestamp': 1
