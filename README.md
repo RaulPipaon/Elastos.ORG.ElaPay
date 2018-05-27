@@ -17,7 +17,7 @@ The second type is like a h5 page that can be shared in social media like facebo
 
 A commodity, product or service can be priced with ELA directly based on the exchange rate (or) can be paid with legal currency
 
-Elapay can be used in many situations, like in a game or you can buy equipment and transact with ELA, you can also use ELA on a shopping website.
+Elapay can be used in many situations, like in a game or you can buy equipment and transact with ELA, you can also use ELA on a shopping website. Its as easy as using any other payment method
 
 ### Description (Chinese)
 Elapay是一种用ELA币进行交易和支付的工具，Elapay主要有两种类型：订购类支付和点对点收付款。
