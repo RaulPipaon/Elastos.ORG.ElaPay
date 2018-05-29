@@ -42,7 +42,7 @@ process.on('message', function(msg) {
                                 db.close();
                                 throw err;
                             }
-                            if (dbTxNewRecords.length > 0) {
+                            else if (dbTxNewRecords.length > 0) {
                                 for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
                                     txObject = dbTxNewRecords[i];
                                     var request = require('request');

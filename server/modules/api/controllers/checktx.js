@@ -50,7 +50,7 @@ var fetchAmountFromOrderDB = function(orderid) {
         }
         mongoClient.connect(constants.MONGOURL, function(err, db) {
             if (err) {
-                db.close();
+                //db.close();
                 resolve(orderavailable);
                 //throw err;
             } else {
@@ -58,7 +58,7 @@ var fetchAmountFromOrderDB = function(orderid) {
                 dbo.collection(constants.ORDERCOLLECTIONNAME).findOne(subQuery, function(err, result) {
                     if (err) {
                         resolve(orderavailable);
-                        db.close();
+                        //db.close();
                     } else {
                         if (result) {
                             amount = result.elaAmount;
@@ -81,15 +81,15 @@ var fetchAmountFromOrderDB = function(orderid) {
                                 } else {
                                     orderavailable = true;
                                     resolve(orderavailable);
+                                    db.close();
                                 }
                             });
-                            db.close();
                         } else {
                             resolve(orderavailable);
                             db.close();
                         }
+                        //db.close();
                     }
-                    db.close();
                 });
             }
         });
