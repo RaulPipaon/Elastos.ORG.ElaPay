@@ -7,6 +7,7 @@
  * Pending Items : 
  */
 /*jshint esversion: 6 */
+/*
 var timers = require("timers"),
     http = require("http"),
     ___backgroundTimer;
@@ -122,3 +123,4 @@ process.on('uncaughtException', function(err) {
     console.log("retriever.js: " + err.message + "\n" + err.stack + "\n Stopping background timer");
     clearInterval(___backgroundTimer);
 })
+*/

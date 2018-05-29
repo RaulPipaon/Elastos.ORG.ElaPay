@@ -2,7 +2,7 @@
  * Developed by :HT
  * Developed on :05/24/2018
  * Code Reviewers : *****
- * FileName:orderIdCallbackPostt.js
+ * FileName:orderIdCallbackPost.js
  * Usage:Used to read records with 'status:ready" from db collection "callbackhashdetails" and send details to callback URL and update 'status:sent'.This code runs every 10 seconds
  * Pending Items : 
  */
@@ -12,6 +12,7 @@ var timers = require("timers"),
     ___backgroundTimer;
 var mongoClient = require('mongodb').MongoClient;
 var constants = require("config/constants");
+var mongoDbConnection = require("config/connections.js");
 var fetch = require("node-fetch");
 var checkedAll = false;
 var txObject;
@@ -25,76 +26,71 @@ process.on('message', function(msg) {
             try {
                 var date = new Date();
                 var request = require('request');
-                mongoClient.connect(constants.MONGOURL, function(err, db) {
-                    if (err) {
-                        throw err;
-                    } else {
-                        var dbo = db.db(constants.DBNAME);
-                        var query = {};
-                        var d = new Date();
-                        query["status"] = "ready";
-                        dbo.collection(constants.ORDERIDCALLBACKDETAILS).find(query).sort({
-                            'timestamp': 1
-                        }).limit(15).toArray(function(err, docs) {
-                            var dbTxNewRecords = docs;
-                            if (err) {
-                                console.log("From File orderIdCallbackPost.js:Error with connection")
-                                db.close();
-                                throw err;
-                            }
-                            else if (dbTxNewRecords.length > 0) {
-                                for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
-                                    txObject = dbTxNewRecords[i];
-                                    var request = require('request');
-                                    var callbackURL = dbTxNewRecords[i].callbackurl;
-                                    var trackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + dbTxNewRecords[i].txhash;
-                                    var txHashToSend = dbTxNewRecords[i].txhash;
-                                    request.post({
-                                        headers: {
-                                            'content-type': 'application/json'
-                                        },
-                                        status: 200,
-                                        url: dbTxNewRecords[i].callbackurl,
-                                        body: JSON.stringify({
-                                            transactionHash: dbTxNewRecords[i].txhash,
-                                            trackingURL: trackURL,
-                                            details: "Transaction is now present on blockchain",
-                                            status: " Success",
-                                            action: "GetTransactionsDetailsByOrderIdToCallbackURL"
-                                        })
-                                    }, function(error, response, body) {
-                                        //Update record in DB
-                                        var updateQuery = {
-                                            txhash: txHashToSend,
-                                            status: "ready"
-                                        };
-                                        var currenttimestamp = Math.floor(Date.now() / 1000);
-                                        var updateInfo = {
-                                            $set: {
-                                                timestamp: currenttimestamp,
-                                                status: "sent"
+                mongoDbConnection(function(databaseConnection) {
+                    var dbo = databaseConnection.db(constants.DBNAME);
+                    var query = {};
+                    var d = new Date();
+                    query["status"] = "ready";
+                    dbo.collection(constants.ORDERIDCALLBACKDETAILS).find(query).sort({
+                        'timestamp': 1
+                    }).limit(15).toArray(function(err, docs) {
+                        var dbTxNewRecords = docs;
+                        if (err) {
+                            console.log("From File orderIdCallbackPost.js:Error with connection")
+                            //db.close();
+                            throw err;
+                        } else if (dbTxNewRecords.length > 0) {
+                            for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
+                                txObject = dbTxNewRecords[i];
+                                var request = require('request');
+                                var callbackURL = dbTxNewRecords[i].callbackurl;
+                                var trackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + dbTxNewRecords[i].txhash;
+                                var txHashToSend = dbTxNewRecords[i].txhash;
+                                request.post({
+                                    headers: {
+                                        'content-type': 'application/json'
+                                    },
+                                    status: 200,
+                                    url: dbTxNewRecords[i].callbackurl,
+                                    body: JSON.stringify({
+                                        transactionHash: dbTxNewRecords[i].txhash,
+                                        trackingURL: trackURL,
+                                        details: "Transaction is now present on blockchain",
+                                        status: " Success",
+                                        action: "GetTransactionsDetailsByOrderIdToCallbackURL"
+                                    })
+                                }, function(error, response, body) {
+                                    //Update record in DB
+                                    var updateQuery = {
+                                        txhash: txHashToSend,
+                                        status: "ready"
+                                    };
+                                    var currenttimestamp = Math.floor(Date.now() / 1000);
+                                    var updateInfo = {
+                                        $set: {
+                                            timestamp: currenttimestamp,
+                                            status: "sent"
+                                        }
+                                    };
+                                    dbo.collection(constants.ORDERIDCALLBACKDETAILS).updateOne(updateQuery, updateInfo, function(err, res) {
+                                        if (err) {
+                                            throw err;
+                                        } else {
+                                            if (i == dbTxNewRecords.length - 1) {
+                                                checkedAll = true;
                                             }
-                                        };
-                                        dbo.collection(constants.ORDERIDCALLBACKDETAILS).updateOne(updateQuery, updateInfo, function(err, res) {
-                                            if (err) {
-                                                throw err;
-                                            } else {
-                                                if (i == dbTxNewRecords.length - 1) {
-                                                    checkedAll = true;
-                                                }
-                                            }
-                                            //db.close();
-                                        });
+                                        }
+                                        //db.close();
                                     });
-                                }
-                                if (checkedAll) {
-                                    db.close();
-                                }
-                            } else {
-                                db.close();
+                                });
                             }
-                        });
-                    }
+                            if (checkedAll) {
+                                //db.close();
+                            }
+                        } else {
+                            //db.close();
+                        }
+                    });
                 });
                 //process.send("msg.content");
             } catch (err) {

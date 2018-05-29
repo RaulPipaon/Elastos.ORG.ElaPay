@@ -12,6 +12,7 @@ var timers = require("timers"),
     ___backgroundTimer;
 var mongoClient = require('mongodb').MongoClient;
 var constants = require("config/constants");
+var mongoDbConnection = require("config/connections.js");
 var request = require('request');
 var fetch = require("node-fetch");
 var checkedAll = false;
@@ -26,83 +27,79 @@ process.on('message', function(msg) {
             try {
                 var date = new Date();
                 //Connect to db and fetch data
-                mongoClient.connect(constants.MONGOURL, function(err, db) {
-                    if (err) {
-                        //db.close();
-                        throw err;
-                    } else {
-                        var dbo = db.db(constants.DBNAME);
-                        var query = {};
-                        query["status"] = "new";
-                        dbo.collection(constants.ORDERIDCALLBACKDETAILS).find(query).sort({
-                            'timestamp': 1
-                        }).limit(15).toArray(function(err, docs) {
-                            var dbTxNewRecords = docs;
-                            if (err) {
-                                console.log("Error with connection from file orderIdDbRetriever.js")
-                                db.close();
-                                throw err;
-                            } else {
-                                if (dbTxNewRecords.length > 0) {
-                                    for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
-                                        txObject = dbTxNewRecords[i];
-                                        var subQuery = {};
-                                        var d = new Date();
-                                        subQuery["txhash"] = dbTxNewRecords[i].txhash;
-                                        subQuery["orderId"] = dbTxNewRecords[i].orderId;
-                                        subQuery["amountAsDouble"] = Math.round(parseFloat(dbTxNewRecords[i].elaamount)*100000000)/100000000;
-                                        subQuery["type"] = "notcoinbase";
-                                        dbo.collection(constants.ELABLOCKDB).find(subQuery).sort({
-                                            'timestamp': 1
-                                        }).toArray(function(err, details) {
-                                            if (err) {
-                                                console.log("Error with connection file txDBRetreiver.js")
-                                                db.close();
-                                                throw err;
-                                            } else {
-                                                if (details.length > 0) {
-                                                    var updateQuery = {
-                                                        txhash: details[0].txhash,
-                                                        orderId: details[0].orderId,
-                                                        elaamount: details[0].amountAsDouble,
-                                                        status: "new"
-                                                    };
-                                                    var currenttimestamp = Math.floor(Date.now() / 1000);
-                                                    var updateInfo = {
-                                                        $set: {
-                                                            timestamp: currenttimestamp,
-                                                            status: "ready"
+                mongoDbConnection(function(databaseConnection) {
+                    var dbo = databaseConnection.db(constants.DBNAME);
+                    //Check collection to get recent block height
+                    var query = {};
+                    query["status"] = "new";
+                    dbo.collection(constants.ORDERIDCALLBACKDETAILS).find(query).sort({
+                        'timestamp': 1
+                    }).limit(15).toArray(function(err, docs) {
+                        var dbTxNewRecords = docs;
+                        if (err) {
+                            console.log("Error with connection from file orderIdDbRetriever.js")
+                            //db.close();
+                            throw err;
+                        } else {
+                            if (dbTxNewRecords.length > 0) {
+                                for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
+                                    txObject = dbTxNewRecords[i];
+                                    var subQuery = {};
+                                    var d = new Date();
+                                    subQuery["txhash"] = dbTxNewRecords[i].txhash;
+                                    subQuery["orderId"] = dbTxNewRecords[i].orderId;
+                                    subQuery["amountAsDouble"] = Math.round(parseFloat(dbTxNewRecords[i].elaamount) * 100000000) / 100000000;
+                                    subQuery["type"] = "notcoinbase";
+                                    dbo.collection(constants.ELABLOCKDB).find(subQuery).sort({
+                                        'timestamp': 1
+                                    }).toArray(function(err, details) {
+                                        if (err) {
+                                            console.log("Error with connection file txDBRetreiver.js")
+                                            //db.close();
+                                            throw err;
+                                        } else {
+                                            if (details.length > 0) {
+                                                var updateQuery = {
+                                                    txhash: details[0].txhash,
+                                                    orderId: details[0].orderId,
+                                                    elaamount: details[0].amountAsDouble,
+                                                    status: "new"
+                                                };
+                                                var currenttimestamp = Math.floor(Date.now() / 1000);
+                                                var updateInfo = {
+                                                    $set: {
+                                                        timestamp: currenttimestamp,
+                                                        status: "ready"
+                                                    }
+                                                };
+                                                //Update query to update status if found
+                                                dbo.collection(constants.ORDERIDCALLBACKDETAILS).updateOne(updateQuery, updateInfo, function(err, res) {
+                                                    if (err) {
+                                                        throw err;
+                                                    } else {
+                                                        if (i == dbTxNewRecords.length - 1) {
+                                                            checkedAll = true;
                                                         }
-                                                    };
-                                                    //Update query to update status if found
-                                                    dbo.collection(constants.ORDERIDCALLBACKDETAILS).updateOne(updateQuery, updateInfo, function(err, res) {
-                                                        if (err) {
-                                                            throw err;
-                                                        } else {
-                                                            if (i == dbTxNewRecords.length - 1) {
-                                                                checkedAll = true;
-                                                            }
-                                                            //delete txObject;
-                                                        }
-                                                        //db.close();
-                                                    });
-                                                } else {
+                                                        //delete txObject;
+                                                    }
                                                     //db.close();
-                                                }
+                                                });
+                                            } else {
+                                                //db.close();
                                             }
+                                        }
 
-                                        });
-                                    }
-                                    if (checkedAll) {
-                                        db.close();
-                                    }
-                                } else {
-                                    db.close();
+                                    });
                                 }
+                                if (checkedAll) {
+                                    //db.close();
+                                }
+                            } else {
+                                //db.close();
                             }
+                        }
 
-                        });
-                    }
+                    });
                 });
                 //process.send("msg.content");
             } catch (err) {

@@ -135,6 +135,7 @@ function huobiCall(usdvalue, dbo, db) {
             //Check if the result is less than 24 hrs
             if (checkTimeStampsSecondDiff(result.timestamp) < constants.ELATOUSDFREQUENCYINTERVAL) {
                 returnResults(usdvalue / result.value, result.value, result.timestamp);
+                db.close();
             } else {
                 callHuobiAPI(usdvalue, dbo, db);
             }

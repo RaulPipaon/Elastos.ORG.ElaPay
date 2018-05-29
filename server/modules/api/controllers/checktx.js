@@ -58,7 +58,7 @@ var fetchAmountFromOrderDB = function(orderid) {
                 dbo.collection(constants.ORDERCOLLECTIONNAME).findOne(subQuery, function(err, result) {
                     if (err) {
                         resolve(orderavailable);
-                        //db.close();
+                        db.close();
                     } else {
                         if (result) {
                             amount = result.elaAmount;

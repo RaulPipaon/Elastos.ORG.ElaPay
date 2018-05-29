@@ -7,6 +7,7 @@
  * Pending Items : 
  */
 /*jshint esversion: 6 */
+/*
 var timers = require("timers"),
     http = require("http"),
     ___backgroundTimer;
@@ -126,3 +127,4 @@ process.on('uncaughtException', function(err) {
     console.log("File  detailsCallbackPost.js  :" + err.message + "\n" + err.stack + "\n Stopping background timer in file  from file detailsCallbackPost.js");
     clearInterval(___backgroundTimer);
 })
+*/
