@@ -64,7 +64,7 @@ process.on('message', function(msg) {
                                                             "type": "coinbase"
                                                         });
                                                     } else {
-                                                    	if(txtdata.Transactions[j].Attribute.length > 0 || txtdata.Transactions[j].Attribute != null){
+                                                    	if(txtdata.Transactions[j].Attributes.length > 0 || txtdata.Transactions[j].Attributes != null){
                                                             var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data, 'hex').toString('utf8');
                                                     	}else{
                                                             var orderId = "";
@@ -145,7 +145,7 @@ process.on('message', function(msg) {
                                                             "type": "coinbase"
                                                         });
                                                     } else {
-                                                    	if(txtdata.Transactions[i].Attribute.length > 0 || txtdata.Transactions[i].Attribute != null){
+                                                    	if(txtdata.Transactions[i].Attributes.length > 0 || txtdata.Transactions[i].Attributes != null){
                                                             var orderId = Buffer.from(txtdata.Transactions[i].Attributes[0].Data, 'hex').toString('utf8');
 
                                                     	}else{
