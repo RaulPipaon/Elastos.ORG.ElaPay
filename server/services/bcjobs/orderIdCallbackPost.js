@@ -31,6 +31,9 @@ process.on('message', function(msg) {
                     var query = {};
                     var d = new Date();
                     query["status"] = "ready";
+                    query["retrycount"] = {
+                        $lte: 10
+                    };
                     dbo.collection(constants.ORDERIDCALLBACKDETAILS).find(query).sort({
                         'timestamp': 1
                     }).limit(15).toArray(function(err, docs) {
@@ -40,10 +43,12 @@ process.on('message', function(msg) {
                             //db.close();
                             throw err;
                         } else if (dbTxNewRecords.length > 0) {
+
                             for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
                                 txObject = dbTxNewRecords[i];
                                 var request = require('request');
                                 var callbackURL = dbTxNewRecords[i].callbackurl;
+                                var retrycountlocal = dbTxNewRecords[i].retrycount;
                                 var trackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + dbTxNewRecords[i].txhash;
                                 var txHashToSend = dbTxNewRecords[i].txhash;
                                 request.post({
@@ -60,18 +65,60 @@ process.on('message', function(msg) {
                                         action: "GetTransactionsDetailsByOrderIdToCallbackURL"
                                     })
                                 }, function(error, response, body) {
-                                    //Update record in DB
-                                    var updateQuery = {
-                                        txhash: txHashToSend,
-                                        status: "ready"
-                                    };
-                                    var currenttimestamp = Math.floor(Date.now() / 1000);
-                                    var updateInfo = {
-                                        $set: {
-                                            timestamp: currenttimestamp,
-                                            status: "sent"
+                                    if (typeof response === "undefined") {
+                                        //Update record in DB
+                                        retrycountlocal = retrycountlocal + 1
+                                        var updateQuery = {
+                                            txhash: txHashToSend,
+                                            status: "ready"
+                                        };
+                                        if (retrycountlocal == 10 || retrycountlocal == 11) {
+                                            var statusLocal = "badrequest"
+                                        } else {
+                                            var statusLocal = "ready"
                                         }
-                                    };
+                                        var currenttimestamp = Math.floor(Date.now() / 1000);
+                                        var updateInfo = {
+                                            $set: {
+                                                timestamp: currenttimestamp,
+                                                status: statusLocal,
+                                                retrycount: retrycountlocal
+                                            }
+                                        };
+                                    } else {
+                                        if (response.statusCode == 200) {
+                                            var updateQuery = {
+                                                txhash: txHashToSend,
+                                                status: "ready"
+                                            };
+                                            var currenttimestamp = Math.floor(Date.now() / 1000);
+                                            var updateInfo = {
+                                                $set: {
+                                                    timestamp: currenttimestamp,
+                                                    status: "sent"
+                                                }
+                                            };
+                                        } else {
+                                            retrycountlocal = retrycountlocal + 1
+                                            var updateQuery = {
+                                                txhash: txHashToSend,
+                                                status: "ready"
+                                            };
+                                            var currenttimestamp = Math.floor(Date.now() / 1000);
+                                            if (retrycountlocal == 10 || retrycountlocal == 11) {
+                                                var statusLocal = "badrequest"
+                                            } else {
+                                                var statusLocal = "ready"
+                                            }
+                                            var updateInfo = {
+                                                $set: {
+                                                    timestamp: currenttimestamp,
+                                                    status: statusLocal,
+                                                    retrycount: retrycountlocal
+                                                }
+                                            };
+                                        }
+                                    }
                                     dbo.collection(constants.ORDERIDCALLBACKDETAILS).updateOne(updateQuery, updateInfo, function(err, res) {
                                         if (err) {
                                             throw err;

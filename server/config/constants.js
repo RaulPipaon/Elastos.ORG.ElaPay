@@ -14,8 +14,8 @@
  */
 module.exports = Object.freeze({
     MONGOURL : "mongodb://localhost/",
-    BCEXPLORERURL : "http://blockchain-test-05.eadd.co",
-    ELAAPIURL  : "http://api-test-05.eadd.co:22334",
+    BCEXPLORERURL : "https://blockchain-test-06.eadd.co",
+    ELAAPIURL  : "http://node-regtest-03-01.eadd.co:23334",
     CURRENCYURL : "http://www.apilayer.net/api/live?access_key=3e237efb6e565d8836feb494f3d9bbe0&format=1",
     HUOBIURL : "https://api.huobipro.com/market/detail?symbol=elausdt",
     ELATXPAGELOCATION : "/tx/",

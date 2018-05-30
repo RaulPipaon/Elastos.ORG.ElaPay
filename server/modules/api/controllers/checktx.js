@@ -71,7 +71,8 @@ var fetchAmountFromOrderDB = function(orderid) {
                                 elaamount: amount,
                                 callbackurl: callbackURL,
                                 timestamp: currenttimestamp,
-                                status: "new"
+                                status: "new",
+                                retrycount:0
                             };
                             dbo.collection(constants.ORDERIDCALLBACKDETAILS).insertOne(elasubhashObj, function(err, result) {
                                 if (err) {
