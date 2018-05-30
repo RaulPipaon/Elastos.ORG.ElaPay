@@ -64,7 +64,12 @@ process.on('message', function(msg) {
                                                             "type": "coinbase"
                                                         });
                                                     } else {
-                                                        var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data, 'hex').toString('utf8');
+                                                    	if(txtdata.Transactions[j].Attribute.length > 0 || txtdata.Transactions[j].Attribute != null){
+                                                            var orderId = Buffer.from(txtdata.Transactions[j].Attributes[0].Data, 'hex').toString('utf8');
+                                                    	}else{
+                                                            var orderId = "";
+                                                    	}
+                                                    	
                                                         //var amount = parseFloat(txtdata.Transactions[j].Outputs[0].Value);
                                                         for (var l = 0; l <= txtdata.Transactions[j].Outputs.length - 1; l++) {
                                                             if (txtdata.Transactions[j].UTXOInputs[0].Address == txtdata.Transactions[j].Outputs[l].Address) {
@@ -140,6 +145,12 @@ process.on('message', function(msg) {
                                                             "type": "coinbase"
                                                         });
                                                     } else {
+                                                    	if(txtdata.Transactions[i].Attribute.length > 0 || txtdata.Transactions[i].Attribute != null){
+                                                            var orderId = Buffer.from(txtdata.Transactions[i].Attributes[0].Data, 'hex').toString('utf8');
+
+                                                    	}else{
+                                                            var orderId = "";
+                                                    	}
                                                         var orderId = Buffer.from(txtdata.Transactions[i].Attributes[0].Data, 'hex').toString('utf8');
                                                         for (var p = 0; p <= blockTxDetail.Transactions[i].Outputs.length - 1; p++) {
                                                             if (blockTxDetail.Transactions[i].UTXOInputs[0].Address == blockTxDetail.Transactions[i].Outputs[p].Address) {
