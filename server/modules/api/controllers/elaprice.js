@@ -180,13 +180,15 @@ function callHuobiAPI(usdvalue, dbo, db) {
 
 //Send back results
 function returnResults(rate, usdela, time) {
+    var amount = Math.round(parseFloat(rate)*100000000)/100000000;
+    var usdelaAmount = Math.round(parseFloat(usdela)*100000000)/100000000;
     response.status(200);
     response.setHeader('Content-Type', 'application/json');
     response.send(JSON.stringify({
         status: "Success",
         action: "GetAmountInELA",
-        elaAmount: rate,
-        exchangeRate: usdela,
+        elaAmount: amount,
+        exchangeRate: usdelaAmount,
         queryTime: time
     }));
 }

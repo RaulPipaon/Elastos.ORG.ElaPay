@@ -71,7 +71,7 @@ process.on('message', function(msg) {
                                                                 //Do Nothing as this transaction is sent from receiver to sender.
                                                             } else {
                                                             	//Insert info blockdb. Defect https://github.com/elastos/Elastos.ORG.ElaPay/issues/6
-                                                                var amount = parseFloat(txtdata.Transactions[j].Outputs[l].Value);
+                                                                var amount = Math.round(parseFloat(txtdata.Transactions[j].Outputs[l].Value)*100000000)/100000000;
                                                                 blockDataArray.push({
                                                                     "txhash": txtdata.Transactions[j].Hash,
                                                                     "amount": txtdata.Transactions[j].Outputs[l].Value,
@@ -146,7 +146,7 @@ process.on('message', function(msg) {
                                                                 //Do Nothing as sender and receiver are the same
                                                             } else {
                                                             	//Insert info blockdb. Defect https://github.com/elastos/Elastos.ORG.ElaPay/issues/6
-                                                                var amount = parseFloat(blockTxDetail.Transactions[i].Outputs[p].Value);
+                                                                var amount = Math.round(parseFloat(blockTxDetail.Transactions[i].Outputs[p].Value)*100000000)/100000000;
                                                                 blockTransactionDetails.push({
                                                                     "txhash": blockTxDetail.Transactions[i].Hash,
                                                                     "amount": blockTxDetail.Transactions[i].Outputs[p].Value,
