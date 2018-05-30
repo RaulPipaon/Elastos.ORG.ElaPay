@@ -79,13 +79,13 @@ export class ItemComponent implements OnInit, OnDestroy {
         this.item.queryTime = data.queryTime;
 
         if (this.state.discountPecent) {
-            let rate = this.state.discountPecent / 100;
+            const rate = this.state.discountPecent / 100;
 
             elaAmount = elaAmount - (elaAmount * rate);
             exchangeRate = exchangeRate - (exchangeRate * rate);
         }
 
-        this.item.elaAmount = elaAmount;
+        this.item.elaAmount = Math.round(parseFloat(elaAmount)*100000000)/100000000;
         this.item.exchangeRate = exchangeRate;
     }
 
