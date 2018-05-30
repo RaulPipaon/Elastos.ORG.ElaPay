@@ -34,7 +34,6 @@ export class ItemComponent implements OnInit, OnDestroy {
     loadOrder(id) {
         this.itemService.find(id).subscribe((order: any) => {
             this.item = order.order;
-            this.item.elaAmount = Number(this.item.elaAmount).toFixed(5);
         });
     }
 
