@@ -85,7 +85,7 @@ export class ItemComponent implements OnInit, OnDestroy {
             exchangeRate = exchangeRate - (exchangeRate * rate);
         }
 
-        this.item.elaAmount = Math.round(parseFloat(elaAmount)*100000000)/100000000;
+        this.item.elaAmount = Math.round(parseFloat(elaAmount) * 100000000) / 100000000;
         this.item.exchangeRate = exchangeRate;
     }
 

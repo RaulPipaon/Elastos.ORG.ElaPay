@@ -39,7 +39,11 @@ export class ItemComponent implements OnInit, OnDestroy {
 
     handleClickPay() {
         // window.location.href = 'https://wallet.elastos.org';
-        window.location.href = 'https://wallet-test-06.eadd.co/#?is_pay=true&account='+Math.round(parseFloat(this.item.elaAmount)*100000000)+'&address='+this.item.walletAddress+'&memo='+this.item._id+'&callback_url=https%3A%2F%2Felapay-test.elastos.org%2Fapi%2Fchecktx%2F%3Forderid%3D'+this.item._id+'&return_url='+this.item.returnUrl;
+        const callbackUrl = '&callback_url=https%3A%2F%2Felapay-test.elastos.org%2Fapi%2Fchecktx%2F%3Forderid%3D';
+        const elaAmount = Math.round(parseFloat(this.item.elaAmount) * 100000000);
+        const url = `https://wallet-test-06.eadd.co/#?is_pay=true&account=${elaAmount}&address=${this.item.walletAddress}`;
+
+        window.location.href = `${url}&memo=${this.item._id}${callbackUrl}${this.item._id}&return_url=${this.item.returnUrl}`;
     }
 
     handleClickClose() {
