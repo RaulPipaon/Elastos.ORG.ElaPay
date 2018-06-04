@@ -68,6 +68,16 @@ export class ItemComponent implements OnInit, OnDestroy {
                 return alert('Error get rate currency');
             }
 
+            if (this.item.price <= 0) {
+                this.isSaving = false;
+                return alert('Error price need more than 0');
+            }
+
+            if (this.state.discountPecent >= 100 || this.state.discountPecent < 0) {
+                this.isSaving = false;
+                return alert('Error discount pecent must be 0 <= discount < 100');
+            }
+
             this.saveRateAdjustments(data);
             this.save();
         });
