@@ -23,8 +23,9 @@
   },
   "homepage": "https://github.com/hoangnv1203/elapay#readme",
   "dependencies": {
+    "aws-sdk": "^2.250.1",
     "babel-cli": "6.26.0",
-    "bluebird": "3.5.1",
+    "bluebird": "^3.5.1",
     "body-parser": "1.18.2",
     "cors": "2.8.4",
     "express": "3.21.2",
