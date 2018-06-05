@@ -8,3 +8,12 @@ export const AWS = {
     secretAccessKey: 'your-secret-access-key',
     sourceMailAws: 'your-email-verify'
 }
+
+// SMTP config for send mail with SendGrid
+export const SMTP = {
+    host: 'smtp.sendgrid.net',
+    port: '587',
+    secure: false,
+    user: 'your-user',
+    pass: 'your-pass'
+}

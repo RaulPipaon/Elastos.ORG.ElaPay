@@ -7,18 +7,19 @@ import { AWS as AWS_CONFIG } from 'config/config';
 * @ccAddresses: array email []
 * @htmlFormatBody: html format
 * @textFormatBody: string format
+
+
+*Example for other file call service sendMail
+*import {sendMail} from 'services/aws';
+
+*const subject = 'Subject';
+*const toAddresses = ['hoang@gmail.com'];
+*const ccAddresses = ['hoang@gmail.com'];
+*const htmlFormatBody = '<p>aaaaaaa</p>';
+*const textFormatBody = 'aaaaaaaaaaaaaa';
+
+*sendMail(subject, toAddresses, ccAddresses, htmlFormatBody, textFormatBody);
 */
-
-// Example for other file call service sendMail
-// import {sendMail} from 'services/aws';
-
-// const subject = 'Subject';
-// const toAddresses = ['hoang@gmail.com'];
-// const ccAddresses = ['hoang@gmail.com'];
-// const htmlFormatBody = '<p>aaaaaaa</p>';
-// const textFormatBody = 'aaaaaaaaaaaaaa';
-
-// sendMail(subject, toAddresses, ccAddresses, htmlFormatBody, textFormatBody);
 
 export function sendMail(subject, toAddresses, ccAddresses, htmlFormatBody, textFormatBody) {
     // Create sendEmail params template
