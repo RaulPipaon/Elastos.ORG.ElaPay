@@ -73,9 +73,9 @@ export class ItemComponent implements OnInit, OnDestroy {
                 return alert('Error price need more than 0');
             }
 
-            if (this.state.discountPecent >= 100 || this.state.discountPecent < 0) {
+            if (this.state.discountPecent >= 100 ) {
                 this.isSaving = false;
-                return alert('Error discount pecent must be 0 <= discount < 100');
+                return alert('Error discount pecent discount must <= 100');
             }
 
             this.saveRateAdjustments(data);
