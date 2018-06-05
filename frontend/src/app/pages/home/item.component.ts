@@ -80,6 +80,9 @@ export class ItemComponent implements OnInit, OnDestroy {
 
             this.saveRateAdjustments(data);
             this.save();
+        }, (error) => {
+            this.isSaving = false;
+            return alert('Something wrong with get rate currency');
         });
     }
 
