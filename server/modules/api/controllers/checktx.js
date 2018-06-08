@@ -14,6 +14,9 @@ var response;
 var request;
 var amount = 0.0;
 var callbackURL;
+var businessName;
+var price;
+var email;
 
 //Get Request and Send Response
 exports.details = function(req, res) {
@@ -62,7 +65,10 @@ var fetchAmountFromOrderDB = function(orderid) {
                     } else {
                         if (result) {
                             amount = result.elaAmount;
-                            callbackURL = result.callbackUrl
+                            callbackURL = result.callbackUrl;
+                            businessName = result.businessName;
+                            price  = result.price;
+                            email = result.email;
                             //Save to DB
                             var currenttimestamp = Math.floor(Date.now() / 1000);
                             var elasubhashObj = {
@@ -71,8 +77,13 @@ var fetchAmountFromOrderDB = function(orderid) {
                                 elaamount: amount,
                                 callbackurl: callbackURL,
                                 timestamp: currenttimestamp,
+                                businessName:businessName,
+                                price:price,
+                                email:email,
                                 status: "new",
-                                retrycount:0
+                                retrycount:0,
+                                sendcount:0,
+                                orderIdBlock:0
                             };
                             dbo.collection(constants.ORDERIDCALLBACKDETAILS).insertOne(elasubhashObj, function(err, result) {
                                 if (err) {

@@ -59,6 +59,8 @@ process.on('message', function(msg) {
                                             throw err;
                                         } else {
                                             if (details.length > 0) {
+                                                var blockHeight = details[0].blockcheight;
+                                                var blockInitialMinedTime = details[0].timestamp;
                                                 var updateQuery = {
                                                     txhash: details[0].txhash,
                                                     orderId: details[0].orderId,
@@ -69,8 +71,9 @@ process.on('message', function(msg) {
                                                 var updateInfo = {
                                                     $set: {
                                                         timestamp: currenttimestamp,
-                                                        status: "ready"
-                                                    }
+                                                        status: "ready",
+                                                        orderIdBlock: blockHeight,
+                                                        blockInitialMinedTime: blockInitialMinedTime}
                                                 };
                                                 //Update query to update status if found
                                                 dbo.collection(constants.ORDERIDCALLBACKDETAILS).updateOne(updateQuery, updateInfo, function(err, res) {
