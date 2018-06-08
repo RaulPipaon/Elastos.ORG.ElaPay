@@ -68,8 +68,21 @@ export class ItemComponent implements OnInit, OnDestroy {
                 return alert('Error get rate currency');
             }
 
+            if (this.item.price <= 0) {
+                this.isSaving = false;
+                return alert('Error price need more than 0');
+            }
+
+            if (this.state.discountPecent >= 100 ) {
+                this.isSaving = false;
+                return alert('Error discount pecent discount must <= 100');
+            }
+
             this.saveRateAdjustments(data);
             this.save();
+        }, (error) => {
+            this.isSaving = false;
+            return alert('Something wrong with get rate currency');
         });
     }
 
@@ -85,7 +98,7 @@ export class ItemComponent implements OnInit, OnDestroy {
             exchangeRate = exchangeRate - (exchangeRate * rate);
         }
 
-        this.item.elaAmount = Math.round(parseFloat(elaAmount)*100000000)/100000000;
+        this.item.elaAmount = Math.round(parseFloat(elaAmount) * 100000000) / 100000000;
         this.item.exchangeRate = exchangeRate;
     }
 
