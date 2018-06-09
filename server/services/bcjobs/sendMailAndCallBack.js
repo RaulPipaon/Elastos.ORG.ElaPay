@@ -81,6 +81,7 @@ process.on('message', function(msg) {
                                                         subject: subject,
                                                         html: emailBody
                                                     };
+                                                    //console.log(mailOptions);
                                                     //sendMail(mailOptions);	
                                                 }
                                                 var statusLocal;
