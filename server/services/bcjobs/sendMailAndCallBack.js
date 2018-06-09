@@ -67,8 +67,8 @@ process.on('message', function(msg) {
                                                 var price = dbTxNewRecords[i].price;
                                                 var email = dbTxNewRecords[i].email;
                                                 var minedTime = dbTxNewRecords[i].blockInitialMinedTime;
-                                                var sendcount = dbTxNewRecords[i].sendcount;
-                                                sendcount = sendcount + 1;
+                                                var sendcount = blockHeight - dbTxNewRecords[i].orderIdBlock;
+
                                                 var statusLocal;
                                                 if (sendcount < 6) {
                                                     statusLocal = "ready"
@@ -77,6 +77,8 @@ process.on('message', function(msg) {
                                                 } else {
                                                     //Do Nothing
                                                 }
+
+                                                /*
                                                 var updateQuery = {
                                                     txhash: txHashToSend,
                                                     status: "ready"
@@ -87,34 +89,49 @@ process.on('message', function(msg) {
                                                         sendcount: sendcount
                                                     }
                                                 };
-                                                dbo.collection(constants.ORDERIDCALLBACKDETAILS).findOneAndUpdate(updateQuery, updateInfo, function(err, res) {
-                                                    if (err) {
-                                                        throw err;
-                                                    } else {
-                                                        var localTxHash = res.value.txhash
-                                                        var localCallBackURL = res.value.callbackurl
-                                                        var customtrackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + localTxHash;
-                                                        var request = require('request');
-                                                        request.post({
-                                                            headers: {
-                                                                'content-type': 'application/json'
-                                                            },
-                                                            status: 200,
-                                                            url: localCallBackURL,
-                                                            body: JSON.stringify({
-                                                                transactionHash: localTxHash,
-                                                                trackingURL: customtrackURL,
-                                                                details: "Transaction is now present on blockchain",
-                                                                status: " Success",
-                                                                action: "GetTransactionsDetailsByOrderIdToCallbackURL"
-                                                            })
-                                                        }, function(error, response, body) {});
-                                                        if (i == dbTxNewRecords.length - 1) {
-                                                            checkedAll = true;
+                                                */
+                                                if (sendcount != dbTxNewRecords[i].sendcount) {
+
+                                                    dbo.collection(constants.ORDERIDCALLBACKDETAILS).findOneAndUpdate({
+                                                        txhash: txHashToSend,
+                                                        status: "ready"
+                                                    }, {
+                                                        $set: {
+                                                            status: statusLocal,
+                                                            sendcount: sendcount
                                                         }
-                                                    }
-                                                    //db.close();
-                                                });
+                                                    }, {
+                                                        returnOriginal: false
+                                                    }, function(err, res) {
+                                                        if (err) {
+                                                            throw err;
+                                                        } else if (res.lastErrorObject.n == 1) {
+                                                            var localTxHash = res.value.txhash;
+                                                            var localCallBackURL = res.value.callbackurl;
+                                                            var confirmations = res.value.sendcount;
+                                                            var customtrackURL = constants.BCEXPLORERURL + constants.ELATXPAGELOCATION + localTxHash;
+                                                            var request = require('request');
+                                                            request.post({
+                                                                headers: {
+                                                                    'content-type': 'application/json'
+                                                                },
+                                                                status: 200,
+                                                                url: localCallBackURL,
+                                                                body: JSON.stringify({
+                                                                    transactionHash: localTxHash,
+                                                                    trackingURL: customtrackURL,
+                                                                    confirmations: confirmations,
+                                                                    details: "Transaction is now present on blockchain",
+                                                                    status: " Success",
+                                                                    action: "GetTransactionsDetailsByOrderIdToCallbackURL"
+                                                                })
+                                                            }, function(error, response, body) {});
+                                                        }
+                                                        //db.close();
+                                                    });
+
+                                                }
+
                                             }
                                         }
                                     } else {

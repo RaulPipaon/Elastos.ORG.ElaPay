@@ -16,7 +16,8 @@ import bodyParser from 'body-parser';
 import childProcess from 'child_process';
 
 if (cluster.isMaster) {
-    var numWorkers = require('os').cpus().length;
+    //var numWorkers = require('os').cpus().length;
+    var numWorkers = 1;
 
     console.log('Master cluster setting up ' + numWorkers + ' workers...');
 
@@ -64,17 +65,21 @@ if (cluster.isMaster) {
     //system._sendTxDetailsChild = childProcess.fork('./services/bcjobs/txCallbackPost');
     //system._retrieveDetailsPerBlock = childProcess.fork('./services/bcjobs/detailsDbRetriever');
     //system._sendDetailsPerBlock = childProcess.fork('./services/bcjobs/detailsCallbackPost');
-    system._retrieveTxBlockDetails = childProcess.fork('./services/bcjobs/fetchblocks');
+    ////system._retrieveTxBlockDetails = childProcess.fork('./services/bcjobs/fetchblocks');
     system._retrieveOrderIdDetails = childProcess.fork('./services/bcjobs/orderIdDbRetriever');
-    system._sendOrderIdDetails = childProcess.fork('./services/bcjobs/orderIdCallbackPost');
+    //system._sendOrderIdDetails = childProcess.fork('./services/bcjobs/orderIdCallbackPost');
+    system._sendEmailAndCallbackDetails = childProcess.fork('./services/bcjobs/sendMailAndCallBack');
+
+
     //Start request based on hash
     //system._retrieveTxDetailsChild.send(data);
     //system._sendTxDetailsChild.send(data);
-    system._retrieveTxBlockDetails.send(data);
+    ////system._retrieveTxBlockDetails.send(data);
     //system._retrieveDetailsPerBlock.send(data);
     //system._sendDetailsPerBlock.send(data);
     system._retrieveOrderIdDetails.send(data);
-    system._sendOrderIdDetails.send(data);
+    //system._sendOrderIdDetails.send(data);
+    system._sendEmailAndCallbackDetails.send(data); 
 
     system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`))
 }
