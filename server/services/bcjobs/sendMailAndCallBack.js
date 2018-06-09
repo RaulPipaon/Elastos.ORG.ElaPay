@@ -1,12 +1,13 @@
 /*
  * Developed by :HT
- * Developed on :05/24/2018
+ * Developed on :06/08/2018
  * Code Reviewers : *****
- * FileName:orderIdCallbackPost.js
- * Usage:Used to read records with 'status:ready" from db collection "callbackhashdetails" and send details to callback URL and update 'status:sent'.This code runs every 10 seconds
+ * FileName:sendMailAndCallBack.js
+ * Usage:Used to send email and callback.
  * Pending Items : 
  */
 /*jshint esversion: 6 */
+//import {sendMail} from 'services/sendmail';
 var timers = require("timers"),
     http = require("http"),
     ___backgroundTimer;
@@ -16,7 +17,6 @@ var mongoDbConnection = require("config/connections.js");
 var fetch = require("node-fetch");
 var checkedAll = false;
 var txObject;
-
 
 //Here we start batch job
 process.on('message', function(msg) {
@@ -51,7 +51,6 @@ process.on('message', function(msg) {
                                     console.log("Error with connection file txDBRetreiver.js")
                                     //db.close();
                                     throw err;
-
                                 } else {
                                     if (details.length > 0) {
                                         var blockHeight = details[0].blockcheight;
@@ -67,8 +66,23 @@ process.on('message', function(msg) {
                                                 var price = dbTxNewRecords[i].price;
                                                 var email = dbTxNewRecords[i].email;
                                                 var minedTime = dbTxNewRecords[i].blockInitialMinedTime;
+                                                var minedDate = new Date(minedTime * 1000);
                                                 var sendcount = blockHeight - dbTxNewRecords[i].orderIdBlock;
-
+                                                var obtainedOrderID = dbTxNewRecords[i].orderId;
+                                                var elaAmount = dbTxNewRecords[i].elaamount;
+                                                var orderName = dbTxNewRecords[i].orderName;
+                                                var subject = "Your order (" + obtainedOrderID + ") has been paid";
+                                                var trackingLinkHTML = "<a href=\"" + trackURL + "\">Click here to track</a>";
+                                                if (sendcount == 1) {
+                                                    var emailBody = '<p><br>Hello, your order has been paid, below is the details.<br><br>Order Name: ' + orderName + '<br>Business Name: ' + businessName + '<br>Order ID: ' + obtainedOrderID + '<br>Price: ' + price + ' USD <br>TXHash: ' + trackingLinkHTML + '<br>Amount: ' + elaAmount + ' ELA' + '<br>Mined Time: ' + minedDate + '<br>Confirmations: ' + sendcount + ' times' + '<br><br>Thank you for using ElaPay and wish you a happy transaction.<br><br>ElaPay Team<br>==========================<br>Note: This e-mail address is only used to send notifications and cannot receive e-mails. Please do not reply directly.<br></p>';
+                                                    let mailOptions = {
+                                                        from: 'transaction-update@elastos.org',
+                                                        to: email,
+                                                        subject: subject,
+                                                        html: emailBody
+                                                    };
+                                                    //sendMail(mailOptions);	
+                                                }
                                                 var statusLocal;
                                                 if (sendcount < 6) {
                                                     statusLocal = "ready"
@@ -129,7 +143,6 @@ process.on('message', function(msg) {
                                                         }
                                                         //db.close();
                                                     });
-
                                                 }
 
                                             }

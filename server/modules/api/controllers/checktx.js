@@ -69,6 +69,7 @@ var fetchAmountFromOrderDB = function(orderid) {
                             businessName = result.businessName;
                             price  = result.price;
                             email = result.email;
+                            orderName = result.orderName;
                             //Save to DB
                             var currenttimestamp = Math.floor(Date.now() / 1000);
                             var elasubhashObj = {
@@ -80,6 +81,7 @@ var fetchAmountFromOrderDB = function(orderid) {
                                 businessName:businessName,
                                 price:price,
                                 email:email,
+                                orderName:orderName,
                                 status: "new",
                                 retrycount:0,
                                 sendcount:0,

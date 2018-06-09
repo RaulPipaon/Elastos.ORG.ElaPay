@@ -14,6 +14,6 @@ export const SMTP = {
     host: 'smtp.sendgrid.net',
     port: '587',
     secure: false,
-    user: 'your-user',
+    user: 'apikey',
     pass: 'your-pass'
 }
