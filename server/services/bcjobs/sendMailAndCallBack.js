@@ -24,6 +24,7 @@ process.on('message', function(msg) {
         var count = 0;
         ___backgroundTimer = timers.setInterval(function() {
             try {
+                //For testing
                 var date = new Date();
                 var request = require('request');
                 mongoDbConnection(function(databaseConnection) {
