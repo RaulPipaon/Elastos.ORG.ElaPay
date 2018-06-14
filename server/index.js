@@ -14,6 +14,7 @@ import subscribewithtx from 'modules/api/controllers/subscriptionhash'
 import bodyParser from 'body-parser';
 //Added  to support Background Jobs
 import childProcess from 'child_process';
+// import { sendMail } from 'services/sendmail';
 
 if (cluster.isMaster) {
     //var numWorkers = require('os').cpus().length;
@@ -51,6 +52,16 @@ if (cluster.isMaster) {
         res.json('Landing page')
     })
 
+    // let mailOptions = {
+    //     from: '"Fred Foo 👻" <hoang.nong.nv@gmail.com>', // sender address
+    //     to: 'hoang.nong.nv@gmail.com', // list of receivers
+    //     subject: 'Hello ✔', // Subject line
+    //     text: 'Hello world?', // plain text body
+    //     html: '<b>Hello world?</b>' // html body
+    // };
+
+    sendMail(mailOptions);
+
     var _finalizedData = null,
         _httpRequestArray = ['Request Details'];
 
@@ -79,7 +90,7 @@ if (cluster.isMaster) {
     //system._sendDetailsPerBlock.send(data);
     system._retrieveOrderIdDetails.send(data);
     //system._sendOrderIdDetails.send(data);
-    system._sendEmailAndCallbackDetails.send(data); 
+    system._sendEmailAndCallbackDetails.send(data);
 
     system.listen(SERVER_PORT, () => console.log(`Server listen to :${SERVER_PORT}`))
 }

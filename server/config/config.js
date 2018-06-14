@@ -15,5 +15,5 @@ export const SMTP = {
     port: '587',
     secure: false,
     user: 'apikey',
-    pass: 'your-pass'
+    pass: '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'
 }
