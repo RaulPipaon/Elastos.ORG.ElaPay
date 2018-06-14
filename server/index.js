@@ -60,7 +60,7 @@ if (cluster.isMaster) {
     //     html: '<b>Hello world?</b>' // html body
     // };
 
-    sendMail(mailOptions);
+    // sendMail(mailOptions);
 
     var _finalizedData = null,
         _httpRequestArray = ['Request Details'];
