@@ -7,7 +7,9 @@
  * Pending Items : 
  */
 /*jshint esversion: 6 */
-import { sendMail } from 'services/sendmail';
+import {
+    sendMail
+} from 'services/sendmail';
 
 var timers = require("timers"),
     http = require("http"),
@@ -56,7 +58,7 @@ process.on('message', function(msg) {
                                 } else {
                                     if (details.length > 0) {
                                         var blockHeight = details[0].blockcheight;
-
+                                        //blockHeight = 504;
                                         for (var i = 0; i <= dbTxNewRecords.length - 1; i++) {
                                             if ((blockHeight - dbTxNewRecords[i].orderIdBlock <= 6) && (blockHeight - dbTxNewRecords[i].orderIdBlock != dbTxNewRecords[i].sendcount) && (blockHeight - dbTxNewRecords[i].orderIdBlock >= 0)) {
                                                 txObject = dbTxNewRecords[i];
@@ -84,7 +86,7 @@ process.on('message', function(msg) {
                                                         html: emailBody
                                                     };
                                                     //console.log(mailOptions);
-                                                    sendMail(mailOptions);	
+                                                    sendMail(mailOptions);
                                                 }
                                                 var statusLocal;
                                                 if (sendcount < 6) {
