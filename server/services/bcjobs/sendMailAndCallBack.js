@@ -7,7 +7,8 @@
  * Pending Items : 
  */
 /*jshint esversion: 6 */
-//import {sendMail} from 'services/sendmail';
+import { sendMail } from 'services/sendmail';
+
 var timers = require("timers"),
     http = require("http"),
     ___backgroundTimer;
@@ -83,7 +84,7 @@ process.on('message', function(msg) {
                                                         html: emailBody
                                                     };
                                                     //console.log(mailOptions);
-                                                    //sendMail(mailOptions);	
+                                                    sendMail(mailOptions);	
                                                 }
                                                 var statusLocal;
                                                 if (sendcount < 6) {
