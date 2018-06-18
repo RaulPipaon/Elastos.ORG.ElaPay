@@ -17,6 +17,7 @@ var callbackURL;
 var businessName;
 var price;
 var email;
+var orderName;
 
 //Get Request and Send Response
 exports.details = function(req, res) {
@@ -70,7 +71,6 @@ var fetchAmountFromOrderDB = function(orderid) {
                             price  = result.price;
                             email = result.email;
                             orderName = result.orderName;
-                            //Save to DB
                             var currenttimestamp = Math.floor(Date.now() / 1000);
                             var elasubhashObj = {
                                 txhash: request.query.txhash,
