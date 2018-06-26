@@ -27,7 +27,7 @@ exports.details = function(req, res) {
         fetch(txHashUrl)
             .then((response) => response.json())
             .then(function(data) {
-                if (data.Error == "42002") {
+                if (data.Error != 0 ) {
                     res.status(404);
                     res.setHeader('Content-Type', 'application/json');
                     res.send(JSON.stringify({
@@ -44,10 +44,10 @@ exports.details = function(req, res) {
                         action: "GetTransactionDetails",
                         txHash: req.query.txhash,
                         trackingURL: trackURL,
-                        confirmations: data.confirmations,
-                        blockHeight: data.blockheight,
-                        time: data.time,
-                        blockHash: data.blockhash
+                        confirmations: data.Result.confirmations,
+                        // blockHeight: data.blockheight,
+                        time: data.Result.time,
+                        blockHash: data.Result.blockhash
                     }));
                 }
 
